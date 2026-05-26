@@ -1,0 +1,35 @@
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "psforge"
+version = "0.1.0"
+description = "PSForge - AI-Powered Photoshop Automation via MCP"
+authors = ["PSForge Contributors"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.10,<3.15"
+mcp = "^1.6.0"
+photoshop-python-api = "^0.24.0"
+loguru = "^0.7.3"
+tenacity = "^9.0.0"
+psutil = "^6.0.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0.0"
+pytest-cov = "^6.0.0"
+ruff = "^0.8.0"
+
+[tool.poetry.scripts]
+psforge = "psforge.server:main"
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W", "UP"]
+ignore = ["E501"]

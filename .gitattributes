@@ -1,0 +1,150 @@
+# ==========================================
+# PSForge - Git Attributes
+# ==========================================
+# Ensures consistent line endings and file handling
+# across different operating systems
+
+# ==========================================
+# Auto-detect text files and normalize line endings
+# ==========================================
+* text=auto
+
+# ==========================================
+# Source Code
+# ==========================================
+*.py text eol=lf diff=python
+*.pyi text eol=lf
+*.pyx text eol=lf
+*.pxd text eol=lf
+
+# ==========================================
+# Documentation
+# ==========================================
+*.md text eol=lf diff=markdown
+*.txt text eol=lf
+*.rst text eol=lf
+
+# ==========================================
+# Configuration Files
+# ==========================================
+*.json text eol=lf
+*.toml text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.ini text eol=lf
+*.cfg text eol=lf
+*.conf text eol=lf
+
+# ==========================================
+# Shell Scripts
+# ==========================================
+*.sh text eol=lf
+*.bash text eol=lf
+
+# Windows scripts
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+
+# ==========================================
+# Web Files
+# ==========================================
+*.html text eol=lf diff=html
+*.css text eol=lf diff=css
+*.js text eol=lf
+*.jsx text eol=lf
+*.ts text eol=lf
+*.tsx text eol=lf
+
+# ==========================================
+# Binary Files
+# ==========================================
+# Images
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.svg binary
+*.webp binary
+*.bmp binary
+*.tiff binary
+*.tif binary
+
+# Photoshop files
+*.psd binary
+*.psb binary
+*.ai binary
+
+# Archives
+*.zip binary
+*.tar binary
+*.gz binary
+*.tgz binary
+*.rar binary
+*.7z binary
+
+# Fonts
+*.ttf binary
+*.otf binary
+*.woff binary
+*.woff2 binary
+*.eot binary
+
+# Other binaries
+*.exe binary
+*.dll binary
+*.so binary
+*.dylib binary
+*.pdf binary
+
+# ==========================================
+# Language-specific
+# ==========================================
+# Python
+*.pickle binary
+*.pkl binary
+*.pyc binary
+*.pyo binary
+
+# ==========================================
+# Special Handling
+# ==========================================
+# Lock files - always use LF even on Windows
+# to avoid spurious diffs
+poetry.lock text eol=lf
+Pipfile.lock text eol=lf
+package-lock.json text eol=lf
+yarn.lock text eol=lf
+
+# Git files
+.gitignore text eol=lf
+.gitattributes text eol=lf
+.gitmodules text eol=lf
+
+# ==========================================
+# Diff Settings
+# ==========================================
+# Define patterns for better diff output
+*.py diff=python
+*.md diff=markdown
+*.json diff=json
+
+# ==========================================
+# Merge Settings
+# ==========================================
+# Never merge these generated files
+poetry.lock merge=binary
+package-lock.json merge=binary
+
+# ==========================================
+# Export Settings
+# ==========================================
+# Don't include these in archives
+.gitattributes export-ignore
+.gitignore export-ignore
+.github/ export-ignore
+tests/ export-ignore
+*.test.* export-ignore
+.vscode/ export-ignore
+.idea/ export-ignore

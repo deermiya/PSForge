@@ -1,0 +1,354 @@
+# ==========================================
+# PSForge - Photoshop MCP Server
+# ==========================================
+
+# ==========================================
+# Python
+# ==========================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Distribution / packaging
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# ==========================================
+# Virtual Environments
+# ==========================================
+venv/
+ENV/
+env/
+.venv/
+.env/
+virtualenv/
+pipenv/
+
+# ==========================================
+# Poetry
+# ==========================================
+# Note: poetry.lock should be committed for applications
+# to ensure consistent dependency versions across environments
+# poetry.lock  # Uncomment only for libraries
+.poetry/
+
+# ==========================================
+# Testing
+# ==========================================
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+coverage.xml
+*.cover
+.hypothesis/
+.cache
+nosetests.xml
+test-results/
+*.test
+*.spec.ts
+
+# ==========================================
+# IDEs and Editors
+# ==========================================
+# VSCode
+.vscode/
+*.code-workspace
+
+# PyCharm / IntelliJ
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+.*.swp
+.*.swo
+
+# Emacs
+*~
+\#*\#
+.\#*
+
+# Eclipse
+.project
+.pydevproject
+.settings/
+
+# ==========================================
+# Logs and Databases
+# ==========================================
+*.log
+*.log.*
+psforge_debug.log
+psforge_debug.log.*
+*.sql
+*.sqlite
+*.sqlite3
+*.db
+
+# ==========================================
+# OS Files
+# ==========================================
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# Linux
+.directory
+.Trash-*
+
+# ==========================================
+# Temporary Files
+# ==========================================
+*.tmp
+*.temp
+*.bak
+*.backup
+*.old
+*.orig
+*~
+~*
+
+# ==========================================
+# Photoshop Files
+# ==========================================
+# Photoshop temp files
+*.psd~
+~*.psd
+*.psb~
+~*.psb
+
+# Photoshop cache
+*.psd.cache
+*.psb.cache
+
+# Bridge cache
+.BridgeCache
+.BridgeCacheT
+.BridgeSort
+
+# Camera Raw cache
+*.crw
+*.cr2
+*.nef
+*.raf
+*.orf
+*.dng
+
+# ==========================================
+# MCP Server Specific
+# ==========================================
+# MCP logs
+mcp_*.log
+mcp_debug.log
+
+# User configuration (may contain sensitive paths)
+# Uncomment if you want to ignore local configs
+# claude_desktop_config.json
+# cursor_config.json
+
+# ==========================================
+# Sensitive Information
+# ==========================================
+# Environment variables
+.env
+.env.local
+.env.*.local
+.env.production
+.env.development
+.env.test
+
+# Secrets and keys
+secrets/
+*.key
+*.pem
+*.cert
+*.crt
+*.pfx
+*.p12
+credentials.json
+token.json
+api_keys.txt
+
+# ==========================================
+# Documentation
+# ==========================================
+# Sphinx documentation
+docs/_build/
+docs/_static/
+docs/_templates/
+
+# MkDocs
+site/
+
+# Generated docs
+*.pdf
+*.docx
+!README*.pdf  # Allow README PDFs
+
+# ==========================================
+# Project Specific
+# ==========================================
+# Test output
+test_output/
+test_images/
+test_documents/
+*.test.psd
+*.test.jpg
+*.test.png
+
+# User data
+user_data/
+user_scripts/
+
+# Cache directories
+.cache/
+cache/
+*.cache
+
+# Backup files
+backups/
+*.backup.*
+
+# ==========================================
+# Development
+# ==========================================
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb
+
+# pyenv
+.python-version
+
+# pipenv
+Pipfile.lock
+
+# PEP 582
+__pypackages__/
+
+# Celery
+celerybeat-schedule
+celerybeat.pid
+
+# SageMath
+*.sage.py
+
+# Spyder
+.spyderproject
+.spyproject
+
+# Rope
+.ropeproject
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre
+.pyre/
+
+# pytype
+.pytype/
+
+# Cython
+cython_debug/
+
+# ==========================================
+# Misc
+# ==========================================
+# Archives
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.rar
+*.7z
+
+# Large files (optional - uncomment if needed)
+# *.mp4
+# *.avi
+# *.mov
+# *.mkv
+# *.flv
+
+# Node modules (if using any Node tools)
+node_modules/
+package-lock.json
+yarn.lock
+
+# Generated files
+*.generated.*
+*.auto.*
+
+# ==========================================
+# Keep These (Negative Patterns)
+# ==========================================
+# Always include certain files even if matched above
+!.gitkeep
+!.github/
+!README*.md
+!LICENSE
+!CHANGELOG.md
+!pyproject.toml

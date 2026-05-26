@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "psforge": {
+      "command": "poetry",
+      "args": ["run", "psforge"],
+      "cwd": "D:\\AI\\Ref\\PSForge\\psforge"
+    }
+  }
+}
