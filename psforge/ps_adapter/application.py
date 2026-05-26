@@ -38,7 +38,8 @@ class PhotoshopApp:
 
             # Create session
             self._session = Session()
-            self._app = self._session.__enter__()
+            self._session.__enter__()
+            self._app = self._session.app
 
             # Disable all dialogs to prevent blocking
             self._execute_javascript_internal("app.displayDialogs = DialogModes.NO;")

@@ -7,10 +7,10 @@ from pathlib import Path
 from typing import Any, Callable
 
 from loguru import logger
-from mcp.server import Server
+from mcp.server.fastmcp import FastMCP
 
 
-def register_tool(mcp: Server, func: Callable, name: str | None = None) -> str:
+def register_tool(mcp: FastMCP, func: Callable, name: str | None = None) -> str:
     """Register a single tool function with the MCP server.
 
     Args:
@@ -59,7 +59,7 @@ def register_tool(mcp: Server, func: Callable, name: str | None = None) -> str:
     return tool_name
 
 
-def discover_and_register_tools(mcp: Server) -> list[str]:
+def discover_and_register_tools(mcp: FastMCP) -> list[str]:
     """Automatically discover and register all tools from the tools package.
 
     Args:
@@ -105,7 +105,7 @@ def discover_and_register_tools(mcp: Server) -> list[str]:
     return registered_tools
 
 
-def discover_and_register_resources(mcp: Server) -> list[str]:
+def discover_and_register_resources(mcp: FastMCP) -> list[str]:
     """Automatically discover and register all resources from the resources package.
 
     Args:

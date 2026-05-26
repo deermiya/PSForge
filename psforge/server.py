@@ -1,11 +1,9 @@
 """PSForge MCP Server - Main entry point."""
 
-import asyncio
 import sys
 
 from loguru import logger
-from mcp.server import Server
-from mcp.server.stdio import stdio_server
+from mcp.server.fastmcp import FastMCP
 
 from psforge.app import __app_name__, __version__
 from psforge.registry import discover_and_register_resources, discover_and_register_tools
@@ -32,15 +30,15 @@ def setup_logging():
     )
 
 
-async def main():
-    """Main entry point for PSForge MCP Server."""
+def run():
+    """Entry point for the CLI command."""
     setup_logging()
 
     logger.info(f"Starting {__app_name__} v{__version__}")
     logger.info("Photoshop MCP Server - AI-Powered Automation")
 
-    # Create MCP server
-    mcp = Server(__app_name__)
+    # Create MCP server using FastMCP
+    mcp = FastMCP(__app_name__)
 
     # Discover and register all tools
     logger.info("Discovering and registering tools...")
@@ -68,18 +66,8 @@ async def main():
     logger.info("PSForge MCP Server is ready")
     logger.info("Waiting for connections...")
 
-    async with stdio_server() as (read_stream, write_stream):
-        await mcp.run(
-            read_stream,
-            write_stream,
-            mcp.create_initialization_options(),
-        )
-
-
-def run():
-    """Entry point for the CLI command."""
     try:
-        asyncio.run(main())
+        mcp.run(transport="stdio")
     except KeyboardInterrupt:
         logger.info("Server stopped by user")
     except Exception as e:

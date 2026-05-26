@@ -16,7 +16,7 @@ mcp = "^1.6.0"
 photoshop-python-api = "^0.24.0"
 loguru = "^0.7.3"
 tenacity = "^9.0.0"
-psutil = "^6.0.0"
+psutil = "^7.0.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.0.0"
@@ -24,7 +24,7 @@ pytest-cov = "^6.0.0"
 ruff = "^0.8.0"
 
 [tool.poetry.scripts]
-psforge = "psforge.server:main"
+psforge = "psforge.server:run"
 
 [tool.ruff]
 line-length = 120

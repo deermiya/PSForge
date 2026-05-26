@@ -1,7 +1,7 @@
 # PSForge
 
 [![Python Version](https://img.shields.io/badge/python-3.10--3.14-blue.svg)](https://www.python.org/downloads/)
-[![MCP Version](https://img.shields.io/badge/MCP-1.6.0%2B-green.svg)](https://modelcontextprotocol.io/)
+[![MCP Version](https://img.shields.io/badge/MCP-1.27.1%2B-green.svg)](https://modelcontextprotocol.io/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Platform](https://img.shields.io/badge/platform-Windows-lightgrey.svg)](https://www.microsoft.com/windows)
 
@@ -9,7 +9,7 @@
 
 [English](README.md) | [中文](README_ZH.md)
 
-PSForge is a comprehensive MCP (Model Context Protocol) server that bridges AI assistants like Claude with Adobe Photoshop. It provides **57 powerful tools** for complete Photoshop automation through a clean, well-architected Python interface.
+PSForge is a comprehensive MCP (Model Context Protocol) server that bridges AI assistants like Claude with Adobe Photoshop. It provides **59 powerful tools** for complete Photoshop automation through a clean, well-architected Python interface.
 
 > **⚡ Quick Start:** See [QUICKSTART.md](QUICKSTART.md) for setup and testing guide
 
@@ -17,7 +17,7 @@ PSForge is a comprehensive MCP (Model Context Protocol) server that bridges AI a
 
 ## ✨ Key Features
 
-- 🛠️ **57 Photoshop Tools** - Complete automation from documents to filters
+- 🛠️ **59 Photoshop Tools** - Complete automation from documents to filters
 - 🧠 **Context-Aware** - Every operation returns current PS state for intelligent AI decisions
 - 🔄 **Robust & Reliable** - Auto-retry, timeout protection, process monitoring
 - 🏗️ **Clean Architecture** - Four-layer design with auto-discovery
@@ -66,15 +66,13 @@ pip install -e .
 {
   "mcpServers": {
     "psforge": {
-      "command": "poetry",
-      "args": ["run", "psforge"],
-      "cwd": "D:\\path\\to\\your\\psforge"
+      "command": "D:\\your-path\\PSForge\\start_psforge.bat"
     }
   }
 }
 ```
 
-⚠️ **Important:** Replace `cwd` with your actual project path!
+⚠️ **Important:** Replace the path with your actual project path!
 
 **Step 2:** Restart Claude Desktop
 
@@ -101,13 +99,13 @@ See [claude_desktop_config.example.json](claude_desktop_config.example.json) for
 └──────────────┬──────────────────────────┘
                │ MCP Protocol (stdio)
 ┌──────────────▼──────────────────────────┐
-│   Layer 1: MCP Server                   │
+│   Layer 1: MCP Server (FastMCP)         │
 │   • Auto-discovery & Registration       │
 │   • server.py + registry.py             │
 └──────────────┬──────────────────────────┘
                │ Tool Calls
 ┌──────────────▼──────────────────────────┐
-│   Layer 2: Tools (57 tools)             │
+│   Layer 2: Tools (59 tools)             │
 │   • 14 modules by functionality         │
 │   • Full parameter validation           │
 └──────────────┬──────────────────────────┘
@@ -126,7 +124,7 @@ See [claude_desktop_config.example.json](claude_desktop_config.example.json) for
 └─────────────────────────────────────────┘
 ```
 
-## 🛠️ Tool Categories (57 Total)
+## 🛠️ Tool Categories (59 Total)
 
 <details>
 <summary><b>📄 Document Tools (5)</b></summary>
@@ -328,7 +326,7 @@ poetry run python check_tools.py
 
 **Expected output:**
 ```
-✅ Success! All 57 tools registered
+✅ Success! All 59 tools registered
 ```
 
 ### Run Unit Tests
@@ -474,7 +472,7 @@ poetry run ruff check --fix .
 
 **Solutions:**
 1. Verify `claude_desktop_config.json` path is correct
-2. Use absolute path for `cwd` (no `~` or relative paths)
+2. Use absolute path for `start_psforge.bat` (no `~` or relative paths)
 3. Restart Claude Desktop completely
 4. Check Claude Desktop logs: `%APPDATA%\Claude\logs\`
 

@@ -1,7 +1,12 @@
 """检查所有工具是否正确注册"""
 
 import sys
+import io
 from pathlib import Path
+
+# Fix Windows console encoding for emoji support
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
+sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8', errors='replace')
 
 # 添加项目路径到 Python path
 project_root = Path(__file__).parent
@@ -16,12 +21,12 @@ def check_tools():
     print()
 
     try:
-        from mcp.server import Server
+        from mcp.server.fastmcp import FastMCP
         from psforge.registry import discover_and_register_tools
 
         # 创建测试 MCP 服务器
         print("📦 创建 MCP 服务器实例...")
-        mcp = Server("PSForge-ToolCheck")
+        mcp = FastMCP("PSForge-ToolCheck")
         print("   ✓ MCP 服务器创建成功")
         print()
 
@@ -115,18 +120,18 @@ def check_tools():
         print("📊 统计信息:")
         print("-" * 60)
         print(f"实际注册工具数: {len(tools)}")
-        print(f"预期工具数: 57")
+        print(f"预期工具数: 59")
         print(f"分类工具数: {total_categorized}")
 
-        if len(tools) == 57:
+        if len(tools) == 59:
             print()
-            print("✅ 完美！所有 57 个工具已成功注册")
-        elif len(tools) > 57:
+            print("✅ 完美！所有 59 个工具已成功注册")
+        elif len(tools) > 59:
             print()
-            print(f"⚠️  警告：注册了 {len(tools) - 57} 个额外工具")
+            print(f"⚠️  警告：注册了 {len(tools) - 59} 个额外工具")
         else:
             print()
-            print(f"❌ 缺少 {57 - len(tools)} 个工具")
+            print(f"❌ 缺少 {59 - len(tools)} 个工具")
 
         print("=" * 60)
         print()
@@ -139,7 +144,7 @@ def check_tools():
                 print(f"{i:2d}. {tool}")
             print()
 
-        return len(tools) == 57
+        return len(tools) == 59
 
     except Exception as e:
         print(f"❌ 检查失败: {e}")

@@ -72,22 +72,20 @@ psforge --help
 **步骤：**
 
 1. **配置 Claude Desktop**
-   
+
    编辑配置文件：`%APPDATA%\Claude\claude_desktop_config.json`
 
    ```json
    {
      "mcpServers": {
        "psforge": {
-         "command": "poetry",
-         "args": ["run", "psforge"],
-         "cwd": "D:\\AI\\Ref\\PSForge\\psforge"
+         "command": "D:\\你的路径\\PSForge\\start_psforge.bat"
        }
      }
    }
    ```
 
-   ⚠️ **注意：** 将 `cwd` 路径改为你的实际项目路径！
+   ⚠️ **注意：** 将路径改为你的实际项目路径！
 
 2. **重启 Claude Desktop**
 
@@ -197,9 +195,9 @@ import sys
 sys.path.insert(0, 'psforge')
 
 from psforge.registry import discover_and_register_tools
-from mcp.server import Server
+from mcp.server.fastmcp import FastMCP
 
-mcp = Server("PSForge-Test")
+mcp = FastMCP("PSForge-Test")
 tools = discover_and_register_tools(mcp)
 
 print(f"✓ 总计注册 {len(tools)} 个工具")
@@ -207,7 +205,7 @@ print("\n工具列表：")
 for i, tool in enumerate(sorted(tools), 1):
     print(f"{i:2d}. {tool}")
 
-expected = 57
+expected = 59
 if len(tools) == expected:
     print(f"\n✅ 成功！所有 {expected} 个工具已注册")
 else:
@@ -221,16 +219,16 @@ poetry run python check_tools.py
 
 **预期输出：**
 ```
-✓ 总计注册 57 个工具
+✓ 总计注册 59 个工具
 
 工具列表：
  1. adjust_brightness_contrast
  2. adjust_hue_saturation
  3. apply_gaussian_blur
  4. apply_motion_blur
- ... (共 57 个)
+ ... (共 59 个)
 
-✅ 成功！所有 57 个工具已注册
+✅ 成功！所有 59 个工具已注册
 ```
 
 ## 🐛 常见问题
@@ -302,7 +300,7 @@ notepad psforge_debug.log
 
 测试通过后，你可以：
 
-1. **探索所有 57 个工具** - 查看 [README.md](README.md) 的工具列表
+1. **探索所有 59 个工具** - 查看 [README.md](README.md) 的工具列表
 2. **创建复杂工作流** - 组合多个工具实现自动化
 3. **查看源码** - 了解工具实现细节，自定义功能
 4. **贡献代码** - 添加新工具或改进现有功能

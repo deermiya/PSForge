@@ -1,7 +1,7 @@
 # PSForge
 
 [![Python 版本](https://img.shields.io/badge/python-3.10--3.14-blue.svg)](https://www.python.org/downloads/)
-[![MCP 版本](https://img.shields.io/badge/MCP-1.6.0%2B-green.svg)](https://modelcontextprotocol.io/)
+[![MCP 版本](https://img.shields.io/badge/MCP-1.27.1%2B-green.svg)](https://modelcontextprotocol.io/)
 [![许可证](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![平台](https://img.shields.io/badge/platform-Windows-lightgrey.svg)](https://www.microsoft.com/windows)
 
@@ -9,7 +9,7 @@
 
 [English](README.md) | [中文](README_ZH.md)
 
-PSForge 是一个全面的 MCP（模型上下文协议）服务器，它连接 AI 助手（如 Claude）与 Adobe Photoshop。通过清晰、架构良好的 Python 接口，提供 **57 个强大工具**，实现完整的 Photoshop 自动化。
+PSForge 是一个全面的 MCP（模型上下文协议）服务器，它连接 AI 助手（如 Claude）与 Adobe Photoshop。通过清晰、架构良好的 Python 接口，提供 **59 个强大工具**，实现完整的 Photoshop 自动化。
 
 > **⚡ 快速开始：** 查看 [QUICKSTART.md](QUICKSTART.md) 了解安装和测试指南
 
@@ -17,7 +17,7 @@ PSForge 是一个全面的 MCP（模型上下文协议）服务器，它连接 A
 
 ## ✨ 核心特性
 
-- 🛠️ **57 个 Photoshop 工具** - 从文档到滤镜的完整自动化
+- 🛠️ **59 个 Photoshop 工具** - 从文档到滤镜的完整自动化
 - 🧠 **上下文感知** - 每次操作都返回当前 PS 状态，供 AI 智能决策
 - 🔄 **健壮可靠** - 自动重试、超时保护、进程监控
 - 🏗️ **清晰架构** - 四层设计，自动发现工具
@@ -66,15 +66,13 @@ pip install -e .
 {
   "mcpServers": {
     "psforge": {
-      "command": "poetry",
-      "args": ["run", "psforge"],
-      "cwd": "D:\\你的路径\\PSForge\\psforge"
+      "command": "D:\\你的路径\\PSForge\\start_psforge.bat"
     }
   }
 }
 ```
 
-⚠️ **重要：** 将 `cwd` 替换为你的实际项目路径！
+⚠️ **重要：** 将路径替换为你的实际项目路径！
 
 **步骤 2：** 重启 Claude Desktop
 
@@ -101,13 +99,13 @@ pip install -e .
 └──────────────┬──────────────────────────┘
                │ MCP 协议（stdio）
 ┌──────────────▼──────────────────────────┐
-│   第 1 层：MCP 服务器                   │
+│   第 1 层：MCP 服务器（FastMCP）        │
 │   • 自动发现和注册                      │
 │   • server.py + registry.py             │
 └──────────────┬──────────────────────────┘
                │ 工具调用
 ┌──────────────▼──────────────────────────┐
-│   第 2 层：工具层（57 个工具）          │
+│   第 2 层：工具层（59 个工具）          │
 │   • 按功能分为 14 个模块                │
 │   • 完整的参数验证                      │
 └──────────────┬──────────────────────────┘
@@ -126,7 +124,7 @@ pip install -e .
 └─────────────────────────────────────────┘
 ```
 
-## 🛠️ 工具分类（共 57 个）
+## 🛠️ 工具分类（共 59 个）
 
 <details>
 <summary><b>📄 文档工具（5 个）</b></summary>
@@ -328,7 +326,7 @@ poetry run python check_tools.py
 
 **预期输出：**
 ```
-✅ 成功！所有 57 个工具已注册
+✅ 成功！所有 59 个工具已注册
 ```
 
 ### 运行单元测试
@@ -474,7 +472,7 @@ poetry run ruff check --fix .
 
 **解决方案：**
 1. 验证 `claude_desktop_config.json` 路径是否正确
-2. 使用绝对路径作为 `cwd`（不要用 `~` 或相对路径）
+2. 使用绝对路径指向 `start_psforge.bat`（不要用 `~` 或相对路径）
 3. 完全重启 Claude Desktop
 4. 检查 Claude Desktop 日志：`%APPDATA%\Claude\logs\`
 
