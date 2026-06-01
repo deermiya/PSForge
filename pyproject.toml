@@ -5,10 +5,26 @@ build-backend = "poetry.core.masonry.api"
 [tool.poetry]
 name = "psforge"
 version = "0.2.0"
-description = "PSForge - AI-Powered Photoshop Automation via MCP"
-authors = ["PSForge Contributors"]
+description = "AI-Powered Photoshop Automation via Model Context Protocol (MCP)"
+authors = ["deermiya"]
 license = "MIT"
 readme = "README.md"
+homepage = "https://github.com/deermiya/PSForge"
+repository = "https://github.com/deermiya/PSForge"
+keywords = ["photoshop", "mcp", "automation", "ai", "adobe", "com"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: Microsoft :: Windows",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Multimedia :: Graphics",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+packages = [{include = "psforge"}]
 
 [tool.poetry.dependencies]
 python = ">=3.10,<3.15"

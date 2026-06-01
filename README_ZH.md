@@ -37,7 +37,13 @@ PSForge 是一个全面的 MCP（模型上下文协议）服务器，它连接 A
 
 ## 🚀 快速安装
 
-### 使用 Poetry（推荐）
+### 使用 pip（推荐）
+
+```bash
+pip install psforge
+```
+
+### 使用 Poetry（开发环境）
 
 ```bash
 # 克隆或下载项目
@@ -50,7 +56,7 @@ poetry install
 poetry run python check_tools.py
 ```
 
-### 使用 pip
+### 从源码安装
 
 ```bash
 cd psforge
@@ -63,6 +69,18 @@ pip install -e .
 
 **步骤 1：** 编辑 `%APPDATA%\Claude\claude_desktop_config.json`
 
+通过 pip 安装的：
+```json
+{
+  "mcpServers": {
+    "psforge": {
+      "command": "psforge"
+    }
+  }
+}
+```
+
+从源码运行的：
 ```json
 {
   "mcpServers": {
@@ -72,8 +90,6 @@ pip install -e .
   }
 }
 ```
-
-⚠️ **重要：** 将路径替换为你的实际项目路径！
 
 **步骤 2：** 重启 Claude Desktop
 

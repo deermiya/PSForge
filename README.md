@@ -37,7 +37,13 @@ PSForge is a comprehensive MCP (Model Context Protocol) server that bridges AI a
 
 ## 🚀 Quick Installation
 
-### Using Poetry (Recommended)
+### Using pip (Recommended)
+
+```bash
+pip install psforge
+```
+
+### Using Poetry (Development)
 
 ```bash
 # Clone or download the project
@@ -50,7 +56,7 @@ poetry install
 poetry run python check_tools.py
 ```
 
-### Using pip
+### From source
 
 ```bash
 cd psforge
@@ -63,6 +69,18 @@ pip install -e .
 
 **Step 1:** Edit `%APPDATA%\Claude\claude_desktop_config.json`
 
+If installed via pip:
+```json
+{
+  "mcpServers": {
+    "psforge": {
+      "command": "psforge"
+    }
+  }
+}
+```
+
+If running from source:
 ```json
 {
   "mcpServers": {
@@ -72,8 +90,6 @@ pip install -e .
   }
 }
 ```
-
-⚠️ **Important:** Replace the path with your actual project path!
 
 **Step 2:** Restart Claude Desktop
 
