@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "psforge"
-version = "0.2.0"
+version = "0.3.0"
 description = "AI-Powered Photoshop Automation via Model Context Protocol (MCP)"
 authors = ["deermiya"]
 license = "MIT"
