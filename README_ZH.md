@@ -9,7 +9,7 @@
 
 [English](README.md) | [中文](README_ZH.md)
 
-PSForge 是一个全面的 MCP（模型上下文协议）服务器，它连接 AI 助手（如 Claude）与 Adobe Photoshop。通过清晰、架构良好的 Python 接口，提供 **59 个强大工具**，实现完整的 Photoshop 自动化。
+PSForge 是一个全面的 MCP（模型上下文协议）服务器，它连接 AI 助手（如 Claude）与 Adobe Photoshop。通过清晰、架构良好的 Python 接口，提供 **61 个强大工具**，实现完整的 Photoshop 自动化。
 
 > **⚡ 快速开始：** 查看 [QUICKSTART.md](QUICKSTART.md) 了解安装和测试指南
 
@@ -17,9 +17,10 @@ PSForge 是一个全面的 MCP（模型上下文协议）服务器，它连接 A
 
 ## ✨ 核心特性
 
-- 🛠️ **59 个 Photoshop 工具** - 从文档到滤镜的完整自动化
-- 🧠 **上下文感知** - 每次操作都返回当前 PS 状态，供 AI 智能决策
-- 🔄 **健壮可靠** - 自动重试、超时保护、进程监控
+- 🛠️ **61 个 Photoshop 工具** - 从文档到滤镜的完整自动化
+- 🧠 **按需查询上下文** - 需要时获取 PS 状态，常规操作零开销
+- ⚡ **批量执行** - 多个操作通过单次 COM 调用完成
+- 🔄 **健壮可靠** - 指数退避自动重试、进程监控
 - 🏗️ **清晰架构** - 四层设计，自动发现工具
 - 🎯 **类型安全** - 完整的类型注解和参数验证
 - 📝 **详尽日志** - 调试日志助力问题排查
@@ -105,8 +106,8 @@ pip install -e .
 └──────────────┬──────────────────────────┘
                │ 工具调用
 ┌──────────────▼──────────────────────────┐
-│   第 2 层：工具层（59 个工具）          │
-│   • 按功能分为 14 个模块                │
+│   第 2 层：工具层（61 个工具）          │
+│   • 按功能分为 15 个模块                │
 │   • 完整的参数验证                      │
 └──────────────┬──────────────────────────┘
                │ PS 操作
@@ -124,7 +125,7 @@ pip install -e .
 └─────────────────────────────────────────┘
 ```
 
-## 🛠️ 工具分类（共 59 个）
+## 🛠️ 工具分类（共 61 个）
 
 <details>
 <summary><b>📄 文档工具（5 个）</b></summary>
@@ -267,6 +268,14 @@ pip install -e .
 
 </details>
 
+<details>
+<summary><b>🚀 批量工具（2 个）</b></summary>
+
+- `execute_batch` - 单次 COM 调用执行多个 ExtendScript 脚本
+- `select_layer_by_name` - 按名称激活图层（递归搜索图层组）
+
+</details>
+
 ## 💡 使用示例
 
 ### 示例 1：创建社交媒体横幅
@@ -326,7 +335,7 @@ poetry run python check_tools.py
 
 **预期输出：**
 ```
-✅ 成功！所有 59 个工具已注册
+✅ 成功！所有 61 个工具已注册
 ```
 
 ### 运行单元测试
@@ -355,14 +364,14 @@ psforge/
 │   ├── app.py                       # 版本和元数据
 │   ├── ps_adapter/                  # Photoshop 接口层
 │   │   ├── application.py           # 连接单例 + 重试
-│   │   ├── context.py               # 实时状态追踪 ⭐
-│   │   ├── process_guard.py         # 超时和自动重启 ⭐
-│   │   ├── action_manager.py        # 描述符 API
+│   │   ├── context.py               # 按需状态查询
+│   │   ├── process_guard.py         # 健康检查与自动重启
 │   │   └── utils.py                 # 辅助函数和验证
-│   ├── tools/                       # 14 个工具模块（57 个工具）
+│   ├── tools/                       # 15 个工具模块（61 个工具）
 │   │   ├── session_tools.py
 │   │   ├── document_tools.py
 │   │   ├── layer_tools.py
+│   │   ├── batch_tools.py
 │   │   └── ...（还有 11 个）
 │   └── resources/
 │       └── （资源提供者）
@@ -387,7 +396,7 @@ PSForge 使用自动发现系统。只需在 `tools/` 目录下添加新的 Pyth
 
 ```python
 from psforge.decorators import debug_tool, log_tool_call
-from psforge.ps_adapter import PhotoshopApp, get_context_info
+from psforge.ps_adapter import PhotoshopApp
 from psforge.registry import register_tool
 
 def register(mcp):
@@ -403,7 +412,7 @@ def register(mcp):
             param: 参数描述。
             
         Returns:
-            dict: 操作结果和上下文。
+            dict: 操作结果。
         """
         ps_app = PhotoshopApp()
         doc = ps_app.get_active_document()
@@ -412,7 +421,6 @@ def register(mcp):
             return {
                 "success": False,
                 "error": "没有活动文档",
-                "context": get_context_info()
             }
         
         try:
@@ -422,13 +430,11 @@ def register(mcp):
             return {
                 "success": True,
                 "message": f"使用参数执行: {param}",
-                "context": get_context_info()
             }
         except Exception as e:
             return {
                 "success": False,
                 "error": str(e),
-                "context": get_context_info()
             }
     
     registered_tools.append(register_tool(mcp, my_awesome_tool, "my_awesome_tool"))
@@ -519,13 +525,23 @@ MIT 许可证 - 详见 [LICENSE](LICENSE) 文件
 - ✅ 测试通过：`poetry run pytest`
 - ✅ 代码已格式化：`poetry run ruff format .`
 - ✅ 代码检查通过：`poetry run ruff check .`
-- ✅ 每个工具都从 `get_context_info()` 返回 `context`
+- ✅ 工具返回 `{"success": bool, ...}` 格式（不在返回值中调用 `get_context_info()`）
 
-## 🙏 致谢
+## 📦 版本历史
 
-**灵感来源：**
-- [loonghao/photoshop-python-api-mcp-server](https://github.com/loonghao/photoshop-python-api-mcp-server) - 架构参考
-- [alisaitteke/photoshop-mcp](https://github.com/alisaitteke/photoshop-mcp) - 工具覆盖灵感
+### v0.2.0（2026-06-01）
+
+**性能优化：** 移除所有工具返回值中的 `get_context_info()` 自动附加——每次工具调用节省一次 COM 往返。修复 3×3 双重 retry 嵌套，改为单层 tenacity 重试。
+
+**新工具：** `execute_batch`（单次 COM 调用批量执行 JS）、`select_layer_by_name`（递归按名查找图层）。合计：**61 个工具 / 15 个模块**。
+
+**代码清理：** 移除 `ActionManager` 占位类、未使用的 `execute_with_timeout`、`OperationCounter`、`register_tool` 中的冗余 schema 构建代码。
+
+详见 [CHANGELOG.md](CHANGELOG.md)。
+
+### v0.1.0（2024-05-26）
+
+初始版本。59 个工具，四层架构，自动发现注册，上下文感知返回。
 
 **构建工具：**
 - [photoshop-python-api](https://github.com/loonghao/photoshop-python-api) - Photoshop Python API

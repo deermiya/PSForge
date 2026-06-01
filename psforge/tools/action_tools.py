@@ -6,7 +6,6 @@ from loguru import logger
 
 from psforge.decorators import debug_tool, log_tool_call
 from psforge.ps_adapter.application import PhotoshopApp
-from psforge.ps_adapter.context import get_context_info
 from psforge.ps_adapter.utils import js_escape_string
 from psforge.registry import register_tool
 
@@ -41,7 +40,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": "No active document. Some actions require an open document.",
-                "context": get_context_info(),
             }
 
         try:
@@ -69,7 +67,6 @@ def register(mcp) -> list[str]:
                     "error": result,
                     "action_name": action_name,
                     "action_set": action_set,
-                    "context": get_context_info(),
                 }
 
             return {
@@ -78,7 +75,6 @@ def register(mcp) -> list[str]:
                 "action_name": action_name,
                 "action_set": action_set,
                 "result": result,
-                "context": get_context_info(),
             }
 
         except Exception as e:
@@ -88,7 +84,6 @@ def register(mcp) -> list[str]:
                 "error": str(e),
                 "action_name": action_name,
                 "action_set": action_set,
-                "context": get_context_info(),
             }
 
     @debug_tool
@@ -116,7 +111,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": "Script cannot be empty",
-                "context": get_context_info(),
             }
 
         try:
@@ -134,7 +128,6 @@ def register(mcp) -> list[str]:
                 "message": "Script executed successfully",
                 "result": result_str,
                 "script_length": len(script),
-                "context": get_context_info(),
             }
 
         except Exception as e:
@@ -147,7 +140,6 @@ def register(mcp) -> list[str]:
                 "success": False,
                 "error": error_msg,
                 "script_preview": script[:200] + ("..." if len(script) > 200 else ""),
-                "context": get_context_info(),
             }
 
     # Register all tools

@@ -6,7 +6,6 @@ from loguru import logger
 
 from psforge.decorators import debug_tool, log_tool_call
 from psforge.ps_adapter.application import PhotoshopApp
-from psforge.ps_adapter.context import get_context_info
 from psforge.ps_adapter.utils import js_escape_string, validate_color_channel
 from psforge.registry import register_tool
 
@@ -58,7 +57,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": "No active document",
-                "context": get_context_info(),
             }
 
         try:
@@ -96,7 +94,6 @@ def register(mcp) -> list[str]:
                 "position": {"x": x, "y": y},
                 "font_size": font_size,
                 "color": {"r": color_r, "g": color_g, "b": color_b},
-                "context": get_context_info(),
             }
 
         except Exception as e:
@@ -104,7 +101,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": str(e),
-                "context": get_context_info(),
             }
 
     @debug_tool
@@ -125,7 +121,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": "No active document",
-                "context": get_context_info(),
             }
 
         try:
@@ -160,7 +155,6 @@ def register(mcp) -> list[str]:
                 "layer_name": result["layer_name"],
                 "old_text": result["old_text"],
                 "new_text": new_text,
-                "context": get_context_info(),
             }
 
         except Exception as e:
@@ -169,14 +163,12 @@ def register(mcp) -> list[str]:
                 return {
                     "success": False,
                     "error": "Active layer is not a text layer",
-                    "context": get_context_info(),
                 }
 
             logger.error(f"Failed to update text content: {e}")
             return {
                 "success": False,
                 "error": str(e),
-                "context": get_context_info(),
             }
 
     @debug_tool
@@ -198,7 +190,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": "No active document",
-                "context": get_context_info(),
             }
 
         try:
@@ -242,7 +233,6 @@ def register(mcp) -> list[str]:
                 "layer_name": layer_name,
                 "font_name": font_name,
                 "font_size": font_size,
-                "context": get_context_info(),
             }
 
         except Exception as e:
@@ -251,14 +241,12 @@ def register(mcp) -> list[str]:
                 return {
                     "success": False,
                     "error": "Active layer is not a text layer",
-                    "context": get_context_info(),
                 }
 
             logger.error(f"Failed to set text font: {e}")
             return {
                 "success": False,
                 "error": str(e),
-                "context": get_context_info(),
             }
 
     @debug_tool
@@ -285,7 +273,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": "No active document",
-                "context": get_context_info(),
             }
 
         try:
@@ -312,7 +299,6 @@ def register(mcp) -> list[str]:
                 "message": f"Set color of text layer '{layer_name}' to RGB({red}, {green}, {blue})",
                 "layer_name": layer_name,
                 "color": {"red": red, "green": green, "blue": blue},
-                "context": get_context_info(),
             }
 
         except Exception as e:
@@ -321,14 +307,12 @@ def register(mcp) -> list[str]:
                 return {
                     "success": False,
                     "error": "Active layer is not a text layer",
-                    "context": get_context_info(),
                 }
 
             logger.error(f"Failed to set text color: {e}")
             return {
                 "success": False,
                 "error": str(e),
-                "context": get_context_info(),
             }
 
     @debug_tool
@@ -349,7 +333,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": f"Invalid alignment '{alignment}'. Must be: {', '.join(valid_alignments)}",
-                "context": get_context_info(),
             }
 
         ps_app = PhotoshopApp()
@@ -359,7 +342,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": "No active document",
-                "context": get_context_info(),
             }
 
         try:
@@ -382,7 +364,6 @@ def register(mcp) -> list[str]:
                 "message": f"Set alignment of text layer '{layer_name}' to {alignment}",
                 "layer_name": layer_name,
                 "alignment": alignment,
-                "context": get_context_info(),
             }
 
         except Exception as e:
@@ -391,14 +372,12 @@ def register(mcp) -> list[str]:
                 return {
                     "success": False,
                     "error": "Active layer is not a text layer",
-                    "context": get_context_info(),
                 }
 
             logger.error(f"Failed to set text alignment: {e}")
             return {
                 "success": False,
                 "error": str(e),
-                "context": get_context_info(),
             }
 
     # Register all tools

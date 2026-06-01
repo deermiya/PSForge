@@ -6,7 +6,6 @@ from loguru import logger
 
 from psforge.decorators import debug_tool, log_tool_call
 from psforge.ps_adapter.application import PhotoshopApp
-from psforge.ps_adapter.context import get_context_info
 from psforge.ps_adapter.utils import validate_numeric_range
 from psforge.registry import register_tool
 
@@ -42,7 +41,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": "No active document",
-                "context": get_context_info(),
             }
 
         try:
@@ -64,7 +62,6 @@ def register(mcp) -> list[str]:
                 "layer_name": layer_name,
                 "filter": "Gaussian Blur",
                 "radius": radius,
-                "context": get_context_info(),
             }
 
         except Exception as e:
@@ -72,7 +69,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": str(e),
-                "context": get_context_info(),
             }
 
     @debug_tool
@@ -97,7 +93,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": "No active document",
-                "context": get_context_info(),
             }
 
         try:
@@ -120,7 +115,6 @@ def register(mcp) -> list[str]:
                 "filter": "Motion Blur",
                 "angle": angle,
                 "radius": radius,
-                "context": get_context_info(),
             }
 
         except Exception as e:
@@ -128,7 +122,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": str(e),
-                "context": get_context_info(),
             }
 
     @debug_tool
@@ -155,7 +148,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": "No active document",
-                "context": get_context_info(),
             }
 
         try:
@@ -179,7 +171,6 @@ def register(mcp) -> list[str]:
                 "amount": amount,
                 "radius": radius,
                 "threshold": threshold,
-                "context": get_context_info(),
             }
 
         except Exception as e:
@@ -187,7 +178,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": str(e),
-                "context": get_context_info(),
             }
 
     @debug_tool
@@ -210,7 +200,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": "distribution must be 'UNIFORM' or 'GAUSSIAN'",
-                "context": get_context_info(),
             }
 
         ps_app = PhotoshopApp()
@@ -220,7 +209,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": "No active document",
-                "context": get_context_info(),
             }
 
         try:
@@ -246,7 +234,6 @@ def register(mcp) -> list[str]:
                 "amount": amount,
                 "distribution": distribution,
                 "monochromatic": monochromatic,
-                "context": get_context_info(),
             }
 
         except Exception as e:
@@ -254,7 +241,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": str(e),
-                "context": get_context_info(),
             }
 
     # Register all tools

@@ -7,7 +7,6 @@ from loguru import logger
 
 from psforge.decorators import debug_tool, log_tool_call
 from psforge.ps_adapter.application import PhotoshopApp
-from psforge.ps_adapter.context import get_context_info
 from psforge.registry import register_tool
 
 
@@ -39,7 +38,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": f"File not found: {file_path}",
-                "context": get_context_info(),
             }
 
         ps_app = PhotoshopApp()
@@ -49,7 +47,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": "No active document",
-                "context": get_context_info(),
             }
 
         try:
@@ -87,7 +84,6 @@ def register(mcp) -> list[str]:
                 "layer_name": layer_name,
                 "file_path": file_path,
                 "position": {"x": x, "y": y},
-                "context": get_context_info(),
             }
 
         except Exception as e:
@@ -96,7 +92,6 @@ def register(mcp) -> list[str]:
                 "success": False,
                 "error": str(e),
                 "file_path": file_path,
-                "context": get_context_info(),
             }
 
     @debug_tool
@@ -114,7 +109,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": "No active document",
-                "context": get_context_info(),
             }
 
         try:
@@ -191,7 +185,6 @@ def register(mcp) -> list[str]:
                 "success": True,
                 "total_layers": result["total_layers"],
                 "layers": result["layers"],
-                "context": get_context_info(),
             }
 
         except Exception as e:
@@ -199,7 +192,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": str(e),
-                "context": get_context_info(),
             }
 
     # Register all tools

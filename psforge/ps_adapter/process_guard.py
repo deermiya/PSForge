@@ -1,11 +1,8 @@
-"""Process guard for Photoshop - timeout protection, health checks, and restart."""
+"""Process guard for Photoshop - health checks and restart."""
 
 import os
-import signal
 import subprocess
 import time
-from concurrent.futures import ThreadPoolExecutor, TimeoutError as FuturesTimeoutError
-from typing import Any, Callable
 
 import psutil
 from loguru import logger
@@ -110,86 +107,3 @@ def restart_photoshop(photoshop_path: str | None = None) -> bool:
         logger.info("Please start Photoshop manually")
         return False
 
-
-def execute_with_timeout(func: Callable, timeout_seconds: int = 30, *args: Any, **kwargs: Any) -> Any:
-    """Execute a function with timeout protection.
-
-    If the function takes longer than timeout_seconds, it will be interrupted
-    and Photoshop will be force-killed.
-
-    Args:
-        func: Function to execute.
-        timeout_seconds: Timeout in seconds (default: 30).
-        *args: Positional arguments for func.
-        **kwargs: Keyword arguments for func.
-
-    Returns:
-        Result from func execution.
-
-    Raises:
-        TimeoutError: If function execution exceeds timeout.
-    """
-    logger.debug(f"Executing {func.__name__} with {timeout_seconds}s timeout")
-
-    with ThreadPoolExecutor(max_workers=1) as executor:
-        future = executor.submit(func, *args, **kwargs)
-
-        try:
-            result = future.result(timeout=timeout_seconds)
-            return result
-
-        except FuturesTimeoutError:
-            logger.error(f"Operation {func.__name__} timed out after {timeout_seconds}s")
-
-            # Kill Photoshop on timeout
-            logger.warning("Force killing Photoshop due to timeout")
-            kill_photoshop_process()
-
-            raise TimeoutError(f"Operation timed out after {timeout_seconds} seconds. Photoshop was force-killed.")
-
-        except Exception as e:
-            logger.error(f"Operation {func.__name__} failed: {e}")
-            raise
-
-
-class OperationCounter:
-    """Track operations and trigger restart after threshold."""
-
-    def __init__(self, max_operations: int = 1000):
-        """Initialize operation counter.
-
-        Args:
-            max_operations: Maximum operations before recommending restart.
-        """
-        self.count = 0
-        self.max_operations = max_operations
-
-    def increment(self) -> bool:
-        """Increment counter and check if restart is recommended.
-
-        Returns:
-            True if restart is recommended, False otherwise.
-        """
-        self.count += 1
-        if self.count >= self.max_operations:
-            logger.warning(f"Reached {self.count} operations, restart recommended")
-            return True
-        return False
-
-    def reset(self) -> None:
-        """Reset counter (call after restart)."""
-        self.count = 0
-        logger.info("Operation counter reset")
-
-
-# Global operation counter instance
-_operation_counter = OperationCounter(max_operations=1000)
-
-
-def get_operation_counter() -> OperationCounter:
-    """Get the global operation counter instance.
-
-    Returns:
-        Global OperationCounter instance.
-    """
-    return _operation_counter

@@ -6,7 +6,6 @@ from loguru import logger
 
 from psforge.decorators import debug_tool, log_tool_call
 from psforge.ps_adapter.application import PhotoshopApp
-from psforge.ps_adapter.context import get_context_info
 from psforge.registry import register_tool
 
 
@@ -40,7 +39,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": "No active document",
-                "context": get_context_info(),
             }
 
         try:
@@ -60,7 +58,6 @@ def register(mcp) -> list[str]:
                 return {
                     "success": False,
                     "error": "Cannot add mask to background layer. Convert it to a regular layer first.",
-                    "context": get_context_info(),
                 }
 
             # Create mask using Action Descriptor (more reliable)
@@ -125,7 +122,6 @@ def register(mcp) -> list[str]:
                 "layer_name": layer_name,
                 "mask_type": mask_type,
                 "reveal_all": reveal_all,
-                "context": get_context_info(),
             }
 
         except Exception as e:
@@ -133,7 +129,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": str(e),
-                "context": get_context_info(),
             }
 
     @debug_tool
@@ -153,7 +148,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": "No active document",
-                "context": get_context_info(),
             }
 
         try:
@@ -177,7 +171,6 @@ def register(mcp) -> list[str]:
                 return {
                     "success": False,
                     "error": "Active layer does not have a mask",
-                    "context": get_context_info(),
                 }
 
             apply_mask_script = """
@@ -204,7 +197,6 @@ def register(mcp) -> list[str]:
                 "success": True,
                 "message": f"Applied layer mask on layer '{layer_name}'",
                 "layer_name": layer_name,
-                "context": get_context_info(),
             }
 
         except Exception as e:
@@ -212,7 +204,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": str(e),
-                "context": get_context_info(),
             }
 
     @debug_tool
@@ -230,7 +221,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": "No active document",
-                "context": get_context_info(),
             }
 
         try:
@@ -253,7 +243,6 @@ def register(mcp) -> list[str]:
                 return {
                     "success": False,
                     "error": "Active layer does not have a mask",
-                    "context": get_context_info(),
                 }
 
             delete_mask_script = """
@@ -280,7 +269,6 @@ def register(mcp) -> list[str]:
                 "success": True,
                 "message": f"Deleted layer mask from layer '{layer_name}'",
                 "layer_name": layer_name,
-                "context": get_context_info(),
             }
 
         except Exception as e:
@@ -288,7 +276,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": str(e),
-                "context": get_context_info(),
             }
 
     # Register all tools

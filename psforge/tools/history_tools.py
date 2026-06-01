@@ -6,7 +6,6 @@ from loguru import logger
 
 from psforge.decorators import debug_tool, log_tool_call
 from psforge.ps_adapter.application import PhotoshopApp
-from psforge.ps_adapter.context import get_context_info
 from psforge.ps_adapter.utils import validate_numeric_range
 from psforge.registry import register_tool
 
@@ -42,7 +41,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": "No active document",
-                "context": get_context_info(),
             }
 
         try:
@@ -78,7 +76,6 @@ def register(mcp) -> list[str]:
                 "message": f"Undone {result['steps_undone']} step(s)",
                 "steps_undone": result["steps_undone"],
                 "current_state": result["current_state"],
-                "context": get_context_info(),
             }
 
         except Exception as e:
@@ -86,7 +83,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": str(e),
-                "context": get_context_info(),
             }
 
     @debug_tool
@@ -109,7 +105,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": "No active document",
-                "context": get_context_info(),
             }
 
         try:
@@ -158,7 +153,6 @@ def register(mcp) -> list[str]:
                 "message": f"Redone {result['steps_redone']} step(s)",
                 "steps_redone": result["steps_redone"],
                 "current_state": result["current_state"],
-                "context": get_context_info(),
             }
 
         except Exception as e:
@@ -166,7 +160,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": str(e),
-                "context": get_context_info(),
             }
 
     @debug_tool
@@ -184,7 +177,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": "No active document",
-                "context": get_context_info(),
             }
 
         try:
@@ -232,7 +224,6 @@ def register(mcp) -> list[str]:
                 "current_index": result["current_index"],
                 "current_state": result["current_state"],
                 "states": result["states"],
-                "context": get_context_info(),
             }
 
         except Exception as e:
@@ -240,7 +231,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": str(e),
-                "context": get_context_info(),
             }
 
     # Register all tools

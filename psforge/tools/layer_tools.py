@@ -6,7 +6,6 @@ from loguru import logger
 
 from psforge.decorators import debug_tool, log_tool_call
 from psforge.ps_adapter.application import PhotoshopApp
-from psforge.ps_adapter.context import get_context_info
 from psforge.ps_adapter.utils import js_escape_string
 from psforge.registry import register_tool
 
@@ -40,7 +39,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": "No active document",
-                "context": get_context_info(),
             }
 
         try:
@@ -59,7 +57,6 @@ def register(mcp) -> list[str]:
                 "success": True,
                 "message": f"Created layer '{layer_name}'",
                 "layer_name": layer_name,
-                "context": get_context_info(),
             }
 
         except Exception as e:
@@ -67,7 +64,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": str(e),
-                "context": get_context_info(),
             }
 
     @debug_tool
@@ -85,7 +81,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": "No active document",
-                "context": get_context_info(),
             }
 
         try:
@@ -109,7 +104,6 @@ def register(mcp) -> list[str]:
                 return {
                     "success": False,
                     "error": "Cannot delete background layer. Convert it to a regular layer first.",
-                    "context": get_context_info(),
                 }
 
             # Delete the layer
@@ -120,7 +114,6 @@ def register(mcp) -> list[str]:
                 "success": True,
                 "message": f"Deleted layer '{layer_name}'",
                 "deleted_layer": layer_name,
-                "context": get_context_info(),
             }
 
         except Exception as e:
@@ -128,7 +121,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": str(e),
-                "context": get_context_info(),
             }
 
     @debug_tool
@@ -149,7 +141,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": "No active document",
-                "context": get_context_info(),
             }
 
         try:
@@ -174,7 +165,6 @@ def register(mcp) -> list[str]:
                 "success": True,
                 "message": f"Duplicated layer as '{duplicated_name}'",
                 "new_layer_name": duplicated_name,
-                "context": get_context_info(),
             }
 
         except Exception as e:
@@ -182,7 +172,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": str(e),
-                "context": get_context_info(),
             }
 
     @debug_tool
@@ -200,7 +189,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": "No active document",
-                "context": get_context_info(),
             }
 
         try:
@@ -214,7 +202,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": True,
                 "message": "Merged all visible layers",
-                "context": get_context_info(),
             }
 
         except Exception as e:
@@ -222,7 +209,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": str(e),
-                "context": get_context_info(),
             }
 
     @debug_tool
@@ -240,7 +226,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": "No active document",
-                "context": get_context_info(),
             }
 
         try:
@@ -254,7 +239,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": True,
                 "message": "Image flattened - all layers merged into background",
-                "context": get_context_info(),
             }
 
         except Exception as e:
@@ -262,7 +246,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": str(e),
-                "context": get_context_info(),
             }
 
     @debug_tool
@@ -280,7 +263,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": "No active document",
-                "context": get_context_info(),
             }
 
         try:
@@ -314,7 +296,6 @@ def register(mcp) -> list[str]:
                 "message": f"Rasterized layer '{layer_info.get('name', 'unknown')}'",
                 "layer_name": layer_info.get("name"),
                 "previous_kind": layer_info.get("kind"),
-                "context": get_context_info(),
             }
 
         except Exception as e:
@@ -322,7 +303,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": str(e),
-                "context": get_context_info(),
             }
 
     # Register all tools

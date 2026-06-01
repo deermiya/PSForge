@@ -6,7 +6,6 @@ from loguru import logger
 
 from psforge.decorators import debug_tool, log_tool_call
 from psforge.ps_adapter.application import PhotoshopApp
-from psforge.ps_adapter.context import get_context_info
 from psforge.ps_adapter.utils import validate_numeric_range
 from psforge.registry import register_tool
 
@@ -44,7 +43,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": "No active document",
-                "context": get_context_info(),
             }
 
         try:
@@ -66,7 +64,6 @@ def register(mcp) -> list[str]:
                 "layer_name": layer_name,
                 "brightness": brightness,
                 "contrast": contrast,
-                "context": get_context_info(),
             }
 
         except Exception as e:
@@ -74,7 +71,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": str(e),
-                "context": get_context_info(),
             }
 
     @debug_tool
@@ -101,7 +97,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": "No active document",
-                "context": get_context_info(),
             }
 
         try:
@@ -125,7 +120,6 @@ def register(mcp) -> list[str]:
                 "hue": hue,
                 "saturation": saturation,
                 "lightness": lightness,
-                "context": get_context_info(),
             }
 
         except Exception as e:
@@ -133,7 +127,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": str(e),
-                "context": get_context_info(),
             }
 
     @debug_tool
@@ -151,7 +144,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": "No active document",
-                "context": get_context_info(),
             }
 
         try:
@@ -172,7 +164,6 @@ def register(mcp) -> list[str]:
                 "message": f"Applied Auto Levels to layer '{layer_name}'",
                 "layer_name": layer_name,
                 "adjustment": "Auto Levels",
-                "context": get_context_info(),
             }
 
         except Exception as e:
@@ -180,7 +171,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": str(e),
-                "context": get_context_info(),
             }
 
     @debug_tool
@@ -198,7 +188,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": "No active document",
-                "context": get_context_info(),
             }
 
         try:
@@ -219,7 +208,6 @@ def register(mcp) -> list[str]:
                 "message": f"Applied Auto Contrast to layer '{layer_name}'",
                 "layer_name": layer_name,
                 "adjustment": "Auto Contrast",
-                "context": get_context_info(),
             }
 
         except Exception as e:
@@ -227,7 +215,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": str(e),
-                "context": get_context_info(),
             }
 
     @debug_tool
@@ -245,7 +232,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": "No active document",
-                "context": get_context_info(),
             }
 
         try:
@@ -266,7 +252,6 @@ def register(mcp) -> list[str]:
                 "message": f"Desaturated layer '{layer_name}'",
                 "layer_name": layer_name,
                 "adjustment": "Desaturate",
-                "context": get_context_info(),
             }
 
         except Exception as e:
@@ -274,7 +259,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": str(e),
-                "context": get_context_info(),
             }
 
     @debug_tool
@@ -292,7 +276,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": "No active document",
-                "context": get_context_info(),
             }
 
         try:
@@ -313,7 +296,6 @@ def register(mcp) -> list[str]:
                 "message": f"Inverted colors of layer '{layer_name}'",
                 "layer_name": layer_name,
                 "adjustment": "Invert",
-                "context": get_context_info(),
             }
 
         except Exception as e:
@@ -321,7 +303,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": str(e),
-                "context": get_context_info(),
             }
 
     # Register all tools

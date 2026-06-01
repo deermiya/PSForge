@@ -6,7 +6,6 @@ from loguru import logger
 
 from psforge.decorators import debug_tool, log_tool_call
 from psforge.ps_adapter.application import PhotoshopApp
-from psforge.ps_adapter.context import get_context_info
 from psforge.ps_adapter.utils import js_escape_string, validate_color_channel, validate_numeric_range
 from psforge.registry import register_tool
 
@@ -42,7 +41,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": "No active document",
-                "context": get_context_info(),
             }
 
         try:
@@ -59,7 +57,6 @@ def register(mcp) -> list[str]:
                 "message": f"Set opacity of layer '{layer_name}' to {opacity}%",
                 "layer_name": layer_name,
                 "opacity": opacity,
-                "context": get_context_info(),
             }
 
         except Exception as e:
@@ -67,7 +64,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": str(e),
-                "context": get_context_info(),
             }
 
     @debug_tool
@@ -120,7 +116,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": f"Invalid blend_mode '{blend_mode}'. Must be one of: {', '.join(valid_modes[:10])}...",
-                "context": get_context_info(),
             }
 
         ps_app = PhotoshopApp()
@@ -130,7 +125,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": "No active document",
-                "context": get_context_info(),
             }
 
         try:
@@ -147,7 +141,6 @@ def register(mcp) -> list[str]:
                 "message": f"Set blend mode of layer '{layer_name}' to {blend_mode}",
                 "layer_name": layer_name,
                 "blend_mode": blend_mode,
-                "context": get_context_info(),
             }
 
         except Exception as e:
@@ -155,7 +148,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": str(e),
-                "context": get_context_info(),
             }
 
     @debug_tool
@@ -176,7 +168,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": "No active document",
-                "context": get_context_info(),
             }
 
         try:
@@ -195,7 +186,6 @@ def register(mcp) -> list[str]:
                 "message": f"Layer '{layer_name}' is now {'visible' if visible else 'hidden'}",
                 "layer_name": layer_name,
                 "visible": visible,
-                "context": get_context_info(),
             }
 
         except Exception as e:
@@ -203,7 +193,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": str(e),
-                "context": get_context_info(),
             }
 
     @debug_tool
@@ -224,7 +213,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": "No active document",
-                "context": get_context_info(),
             }
 
         try:
@@ -243,7 +231,6 @@ def register(mcp) -> list[str]:
                 "message": f"Layer '{layer_name}' is now {'locked' if locked else 'unlocked'}",
                 "layer_name": layer_name,
                 "locked": locked,
-                "context": get_context_info(),
             }
 
         except Exception as e:
@@ -251,7 +238,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": str(e),
-                "context": get_context_info(),
             }
 
     @debug_tool
@@ -269,7 +255,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": "new_name cannot be empty",
-                "context": get_context_info(),
             }
 
         ps_app = PhotoshopApp()
@@ -279,7 +264,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": "No active document",
-                "context": get_context_info(),
             }
 
         try:
@@ -299,7 +283,6 @@ def register(mcp) -> list[str]:
                 "message": f"Renamed layer from '{old_name}' to '{new_name}'",
                 "old_name": old_name,
                 "new_name": new_name,
-                "context": get_context_info(),
             }
 
         except Exception as e:
@@ -307,7 +290,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": str(e),
-                "context": get_context_info(),
             }
 
     @debug_tool
@@ -334,7 +316,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": "No active document",
-                "context": get_context_info(),
             }
 
         try:
@@ -363,7 +344,6 @@ def register(mcp) -> list[str]:
                 "message": f"Filled layer '{layer_name}' with RGB({red}, {green}, {blue})",
                 "layer_name": layer_name,
                 "color": {"red": red, "green": green, "blue": blue},
-                "context": get_context_info(),
             }
 
         except Exception as e:
@@ -371,7 +351,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": str(e),
-                "context": get_context_info(),
             }
 
     # Register all tools

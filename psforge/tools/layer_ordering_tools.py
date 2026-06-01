@@ -6,7 +6,6 @@ from loguru import logger
 
 from psforge.decorators import debug_tool, log_tool_call
 from psforge.ps_adapter.application import PhotoshopApp
-from psforge.ps_adapter.context import get_context_info
 from psforge.ps_adapter.utils import js_escape_string
 from psforge.registry import register_tool
 
@@ -37,7 +36,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": "No active document",
-                "context": get_context_info(),
             }
 
         try:
@@ -60,7 +58,6 @@ def register(mcp) -> list[str]:
                 "success": True,
                 "message": f"Moved layer '{layer_name}' up one position",
                 "layer_name": layer_name,
-                "context": get_context_info(),
             }
 
         except Exception as e:
@@ -69,14 +66,12 @@ def register(mcp) -> list[str]:
                 return {
                     "success": False,
                     "error": "Layer is already at the top or cannot be moved",
-                    "context": get_context_info(),
                 }
 
             logger.error(f"Failed to move layer up: {e}")
             return {
                 "success": False,
                 "error": str(e),
-                "context": get_context_info(),
             }
 
     @debug_tool
@@ -94,7 +89,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": "No active document",
-                "context": get_context_info(),
             }
 
         try:
@@ -117,7 +111,6 @@ def register(mcp) -> list[str]:
                 "success": True,
                 "message": f"Moved layer '{layer_name}' down one position",
                 "layer_name": layer_name,
-                "context": get_context_info(),
             }
 
         except Exception as e:
@@ -126,14 +119,12 @@ def register(mcp) -> list[str]:
                 return {
                     "success": False,
                     "error": "Layer is already at the bottom or cannot be moved",
-                    "context": get_context_info(),
                 }
 
             logger.error(f"Failed to move layer down: {e}")
             return {
                 "success": False,
                 "error": str(e),
-                "context": get_context_info(),
             }
 
     @debug_tool
@@ -151,7 +142,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": "No active document",
-                "context": get_context_info(),
             }
 
         try:
@@ -172,7 +162,6 @@ def register(mcp) -> list[str]:
                 "success": True,
                 "message": f"Moved layer '{layer_name}' to top",
                 "layer_name": layer_name,
-                "context": get_context_info(),
             }
 
         except Exception as e:
@@ -180,7 +169,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": str(e),
-                "context": get_context_info(),
             }
 
     @debug_tool
@@ -198,7 +186,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": "No active document",
-                "context": get_context_info(),
             }
 
         try:
@@ -220,7 +207,6 @@ def register(mcp) -> list[str]:
                 "success": True,
                 "message": f"Moved layer '{layer_name}' to bottom",
                 "layer_name": layer_name,
-                "context": get_context_info(),
             }
 
         except Exception as e:
@@ -228,7 +214,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": str(e),
-                "context": get_context_info(),
             }
 
     @debug_tool
@@ -248,7 +233,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": "position must be 'ABOVE' or 'BELOW'",
-                "context": get_context_info(),
             }
 
         ps_app = PhotoshopApp()
@@ -258,7 +242,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": "No active document",
-                "context": get_context_info(),
             }
 
         try:
@@ -297,7 +280,6 @@ def register(mcp) -> list[str]:
                 "layer_name": layer_name,
                 "target_layer": target_layer_name,
                 "position": position,
-                "context": get_context_info(),
             }
 
         except Exception as e:
@@ -306,14 +288,12 @@ def register(mcp) -> list[str]:
                 return {
                     "success": False,
                     "error": f"Target layer '{target_layer_name}' not found",
-                    "context": get_context_info(),
                 }
 
             logger.error(f"Failed to move layer to position: {e}")
             return {
                 "success": False,
                 "error": str(e),
-                "context": get_context_info(),
             }
 
     # Register all tools

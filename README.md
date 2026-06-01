@@ -9,7 +9,7 @@
 
 [English](README.md) | [中文](README_ZH.md)
 
-PSForge is a comprehensive MCP (Model Context Protocol) server that bridges AI assistants like Claude with Adobe Photoshop. It provides **59 powerful tools** for complete Photoshop automation through a clean, well-architected Python interface.
+PSForge is a comprehensive MCP (Model Context Protocol) server that bridges AI assistants like Claude with Adobe Photoshop. It provides **61 powerful tools** for complete Photoshop automation through a clean, well-architected Python interface.
 
 > **⚡ Quick Start:** See [QUICKSTART.md](QUICKSTART.md) for setup and testing guide
 
@@ -17,9 +17,10 @@ PSForge is a comprehensive MCP (Model Context Protocol) server that bridges AI a
 
 ## ✨ Key Features
 
-- 🛠️ **59 Photoshop Tools** - Complete automation from documents to filters
-- 🧠 **Context-Aware** - Every operation returns current PS state for intelligent AI decisions
-- 🔄 **Robust & Reliable** - Auto-retry, timeout protection, process monitoring
+- 🛠️ **61 Photoshop Tools** - Complete automation from documents to filters
+- 🧠 **Context On-Demand** - Query PS state when needed, zero overhead on normal operations
+- ⚡ **Batch Execution** - Run multiple operations in a single COM round trip
+- 🔄 **Robust & Reliable** - Auto-retry with exponential backoff, process monitoring
 - 🏗️ **Clean Architecture** - Four-layer design with auto-discovery
 - 🎯 **Type-Safe** - Full type annotations and parameter validation
 - 📝 **Comprehensive Logging** - Debug logs for troubleshooting
@@ -105,8 +106,8 @@ See [claude_desktop_config.example.json](claude_desktop_config.example.json) for
 └──────────────┬──────────────────────────┘
                │ Tool Calls
 ┌──────────────▼──────────────────────────┐
-│   Layer 2: Tools (59 tools)             │
-│   • 14 modules by functionality         │
+│   Layer 2: Tools (61 tools)             │
+│   • 15 modules by functionality         │
 │   • Full parameter validation           │
 └──────────────┬──────────────────────────┘
                │ PS Operations
@@ -124,7 +125,7 @@ See [claude_desktop_config.example.json](claude_desktop_config.example.json) for
 └─────────────────────────────────────────┘
 ```
 
-## 🛠️ Tool Categories (59 Total)
+## 🛠️ Tool Categories (61 Total)
 
 <details>
 <summary><b>📄 Document Tools (5)</b></summary>
@@ -267,6 +268,14 @@ See [claude_desktop_config.example.json](claude_desktop_config.example.json) for
 
 </details>
 
+<details>
+<summary><b>🚀 Batch Tools (2)</b></summary>
+
+- `execute_batch` - Run multiple ExtendScript snippets in a single COM round trip
+- `select_layer_by_name` - Activate a layer by name (recursive search including layer groups)
+
+</details>
+
 ## 💡 Usage Examples
 
 ### Example 1: Create a Social Media Banner
@@ -326,7 +335,7 @@ poetry run python check_tools.py
 
 **Expected output:**
 ```
-✅ Success! All 59 tools registered
+✅ Success! All 61 tools registered
 ```
 
 ### Run Unit Tests
@@ -355,14 +364,14 @@ psforge/
 │   ├── app.py                       # Version and metadata
 │   ├── ps_adapter/                  # Photoshop interface layer
 │   │   ├── application.py           # Connection singleton + retry
-│   │   ├── context.py               # Real-time state tracking ⭐
-│   │   ├── process_guard.py         # Timeout & auto-restart ⭐
-│   │   ├── action_manager.py        # Descriptor API
+│   │   ├── context.py               # On-demand state querying
+│   │   ├── process_guard.py         # Health check & auto-restart
 │   │   └── utils.py                 # Helpers & validation
-│   ├── tools/                       # 14 tool modules (57 tools)
+│   ├── tools/                       # 15 tool modules (61 tools)
 │   │   ├── session_tools.py
 │   │   ├── document_tools.py
 │   │   ├── layer_tools.py
+│   │   ├── batch_tools.py
 │   │   └── ... (11 more)
 │   └── resources/
 │       └── (resource providers)
@@ -387,7 +396,7 @@ PSForge uses an auto-discovery system. Just drop a new Python file into `tools/`
 
 ```python
 from psforge.decorators import debug_tool, log_tool_call
-from psforge.ps_adapter import PhotoshopApp, get_context_info
+from psforge.ps_adapter import PhotoshopApp
 from psforge.registry import register_tool
 
 def register(mcp):
@@ -403,7 +412,7 @@ def register(mcp):
             param: Parameter description.
             
         Returns:
-            dict: Operation result with context.
+            dict: Operation result.
         """
         ps_app = PhotoshopApp()
         doc = ps_app.get_active_document()
@@ -412,7 +421,6 @@ def register(mcp):
             return {
                 "success": False,
                 "error": "No active document",
-                "context": get_context_info()
             }
         
         try:
@@ -422,13 +430,11 @@ def register(mcp):
             return {
                 "success": True,
                 "message": f"Executed with param: {param}",
-                "context": get_context_info()
             }
         except Exception as e:
             return {
                 "success": False,
                 "error": str(e),
-                "context": get_context_info()
             }
     
     registered_tools.append(register_tool(mcp, my_awesome_tool, "my_awesome_tool"))
@@ -519,13 +525,7 @@ Contributions are welcome! Please ensure:
 - ✅ Tests pass: `poetry run pytest`
 - ✅ Code formatted: `poetry run ruff format .`
 - ✅ Linting passes: `poetry run ruff check .`
-- ✅ Each tool returns `context` from `get_context_info()`
-
-## 🙏 Credits
-
-**Inspiration:**
-- [loonghao/photoshop-python-api-mcp-server](https://github.com/loonghao/photoshop-python-api-mcp-server) - Architecture reference
-- [alisaitteke/photoshop-mcp](https://github.com/alisaitteke/photoshop-mcp) - Tool coverage inspiration
+- ✅ Tools return `{"success": bool, ...}` format (no `get_context_info()` in tool returns)
 
 **Built with:**
 - [photoshop-python-api](https://github.com/loonghao/photoshop-python-api) - Photoshop Python API
@@ -537,6 +537,22 @@ Contributions are welcome! Please ensure:
 - [Quick Start Guide](QUICKSTART.md) - Get up and running in 5 minutes
 - [Changelog](CHANGELOG.md) - Version history and changes
 - [中文文档](README_ZH.md) - Chinese documentation
+
+## 📦 Version History
+
+### v0.2.0 (2026-06-01)
+
+**Performance:** Removed automatic `get_context_info()` from all tool returns — each tool call now saves one COM round trip. Fixed 3×3 double retry nesting down to single-layer retry.
+
+**New tools:** `execute_batch` (batch JS execution in one COM call), `select_layer_by_name` (recursive layer lookup). Total: **61 tools / 15 modules**.
+
+**Cleanup:** Removed dead code — `ActionManager` placeholder, unused `execute_with_timeout`, `OperationCounter`, and redundant schema building in `register_tool`.
+
+See [CHANGELOG.md](CHANGELOG.md) for full details.
+
+### v0.1.0 (2024-05-26)
+
+Initial release. 59 tools, 4-layer architecture, auto-discovery registration, context-aware returns.
 
 ## ⭐ Star History
 

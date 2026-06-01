@@ -5,7 +5,33 @@ All notable changes to PSForge will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.1.0] - 2024-05-26
+## [0.2.0] - 2026-06-01
+
+### Performance
+
+- **Remove per-tool `get_context_info()` overhead** — Previously every tool call automatically appended a full PS state query (extra COM round trip). Now context is on-demand via `get_session_info` / `get_active_document_info`. This halves the number of COM calls for typical workflows.
+- **Fix double retry nesting** — `execute_javascript` had both a tenacity decorator (3 attempts) and manual retry logic inside `_execute_javascript_internal` (3 attempts), causing up to 9 retries. Now single-layer retry only via tenacity.
+
+### Added
+
+- **`execute_batch` tool** — Run multiple ExtendScript snippets in a single COM round trip. Each snippet is wrapped in try-catch; results collected into an array. Dramatically reduces latency for multi-step operations.
+- **`select_layer_by_name` tool** — Activate a layer by name with recursive search through layer groups. Eliminates the need to manually navigate layer hierarchy.
+- New tool module: `batch_tools.py` (2 tools, total now **61 tools across 15 modules**)
+
+### Removed
+
+- Dead schema-building code in `register_tool()` (FastMCP handles introspection)
+- `ActionManager` class (unused placeholder, file kept as empty stub)
+- `execute_with_timeout` function (defined but never called by any tool)
+- `OperationCounter` class and `get_operation_counter()` (unused)
+
+### Changed
+
+- `_execute_javascript_internal` simplified to single-attempt execution
+- `process_guard.py` trimmed to only `check_photoshop_alive`, `kill_photoshop_process`, `restart_photoshop`
+- Updated custom tool example in README (no more `get_context_info()` in returns)
+
+## [0.1.0] - 2026-05-26
 
 ### Added - Initial Release
 

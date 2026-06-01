@@ -6,7 +6,6 @@ from loguru import logger
 
 from psforge.decorators import debug_tool, log_tool_call
 from psforge.ps_adapter.application import PhotoshopApp
-from psforge.ps_adapter.context import get_context_info
 from psforge.ps_adapter.utils import validate_numeric_range
 from psforge.registry import register_tool
 
@@ -41,7 +40,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": "No active document",
-                "context": get_context_info(),
             }
 
         try:
@@ -63,7 +61,6 @@ def register(mcp) -> list[str]:
                 "layer_name": layer_name,
                 "offset_x": x,
                 "offset_y": y,
-                "context": get_context_info(),
             }
 
         except Exception as e:
@@ -71,7 +68,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": str(e),
-                "context": get_context_info(),
             }
 
     @debug_tool
@@ -100,7 +96,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": "No active document",
-                "context": get_context_info(),
             }
 
         try:
@@ -122,7 +117,6 @@ def register(mcp) -> list[str]:
                 "layer_name": layer_name,
                 "width_percent": width_percent,
                 "height_percent": height_percent,
-                "context": get_context_info(),
             }
 
         except Exception as e:
@@ -130,7 +124,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": str(e),
-                "context": get_context_info(),
             }
 
     @debug_tool
@@ -153,7 +146,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": "No active document",
-                "context": get_context_info(),
             }
 
         try:
@@ -174,7 +166,6 @@ def register(mcp) -> list[str]:
                 "message": f"Rotated layer '{layer_name}' by {angle} degrees",
                 "layer_name": layer_name,
                 "angle": angle,
-                "context": get_context_info(),
             }
 
         except Exception as e:
@@ -182,7 +173,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": str(e),
-                "context": get_context_info(),
             }
 
     @debug_tool
@@ -204,7 +194,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": "No active document",
-                "context": get_context_info(),
             }
 
         try:
@@ -258,7 +247,6 @@ def register(mcp) -> list[str]:
                 "message": f"Layer '{layer_name}' resized to {mode} document canvas",
                 "layer_name": layer_name,
                 "mode": mode,
-                "context": get_context_info(),
             }
 
         except Exception as e:
@@ -266,7 +254,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": str(e),
-                "context": get_context_info(),
             }
 
     @debug_tool
@@ -293,7 +280,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": f"Invalid resample_method '{resample_method}'. Must be one of: {', '.join(valid_methods)}",
-                "context": get_context_info(),
             }
 
         ps_app = PhotoshopApp()
@@ -303,7 +289,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": "No active document",
-                "context": get_context_info(),
             }
 
         try:
@@ -327,7 +312,6 @@ def register(mcp) -> list[str]:
                 "new_height": height,
                 "resample_method": resample_method,
                 "result": result,
-                "context": get_context_info(),
             }
 
         except Exception as e:
@@ -335,7 +319,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": str(e),
-                "context": get_context_info(),
             }
 
     # Register all tools

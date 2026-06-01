@@ -1,10 +1,9 @@
 """Tool and resource registration system for MCP server."""
 
 import importlib
-import inspect
 import pkgutil
 from pathlib import Path
-from typing import Any, Callable
+from typing import Callable
 
 from loguru import logger
 from mcp.server.fastmcp import FastMCP
@@ -24,35 +23,6 @@ def register_tool(mcp: FastMCP, func: Callable, name: str | None = None) -> str:
     tool_name = name or func.__name__
     description = func.__doc__ or f"Tool: {tool_name}"
 
-    # Extract parameter schema from function signature
-    sig = inspect.signature(func)
-    properties = {}
-    required = []
-
-    for param_name, param in sig.parameters.items():
-        if param_name in ("self", "cls"):
-            continue
-
-        param_type = "string"  # Default type
-        if param.annotation != inspect.Parameter.empty:
-            # Map Python types to JSON schema types
-            type_map = {
-                str: "string",
-                int: "integer",
-                float: "number",
-                bool: "boolean",
-                dict: "object",
-                list: "array",
-            }
-            param_type = type_map.get(param.annotation, "string")
-
-        properties[param_name] = {"type": param_type}
-
-        # Mark as required if no default value
-        if param.default == inspect.Parameter.empty:
-            required.append(param_name)
-
-    # Register the tool
     mcp.tool(name=tool_name, description=description.strip())(func)
 
     logger.debug(f"Registered tool: {tool_name}")

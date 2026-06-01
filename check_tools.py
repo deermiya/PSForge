@@ -88,6 +88,7 @@ def check_tools():
             "蒙版": ["create_layer_mask", "apply_layer_mask", "delete_layer_mask"],
             "历史记录": ["undo", "redo", "get_history"],
             "动作/脚本": ["play_action", "execute_script"],
+            "批量操作": ["execute_batch", "select_layer_by_name"],
         }
 
         total_categorized = 0
@@ -120,18 +121,18 @@ def check_tools():
         print("📊 统计信息:")
         print("-" * 60)
         print(f"实际注册工具数: {len(tools)}")
-        print(f"预期工具数: 59")
+        print(f"预期工具数: 61")
         print(f"分类工具数: {total_categorized}")
 
-        if len(tools) == 59:
+        if len(tools) == 61:
             print()
-            print("✅ 完美！所有 59 个工具已成功注册")
-        elif len(tools) > 59:
+            print("✅ 完美！所有 61 个工具已成功注册")
+        elif len(tools) > 61:
             print()
-            print(f"⚠️  警告：注册了 {len(tools) - 59} 个额外工具")
+            print(f"⚠️  警告：注册了 {len(tools) - 61} 个额外工具")
         else:
             print()
-            print(f"❌ 缺少 {59 - len(tools)} 个工具")
+            print(f"❌ 缺少 {61 - len(tools)} 个工具")
 
         print("=" * 60)
         print()
@@ -144,7 +145,7 @@ def check_tools():
                 print(f"{i:2d}. {tool}")
             print()
 
-        return len(tools) == 59
+        return len(tools) == 61
 
     except Exception as e:
         print(f"❌ 检查失败: {e}")

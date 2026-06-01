@@ -6,7 +6,6 @@ from loguru import logger
 
 from psforge.decorators import debug_tool, log_tool_call
 from psforge.ps_adapter.application import PhotoshopApp
-from psforge.ps_adapter.context import get_context_info
 from psforge.registry import register_tool
 
 
@@ -36,7 +35,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": "No active document",
-                "context": get_context_info(),
             }
 
         try:
@@ -61,7 +59,6 @@ def register(mcp) -> list[str]:
                 "message": "Selected entire document",
                 "selection_width": result["width"],
                 "selection_height": result["height"],
-                "context": get_context_info(),
             }
 
         except Exception as e:
@@ -69,7 +66,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": str(e),
-                "context": get_context_info(),
             }
 
     @debug_tool
@@ -91,13 +87,11 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": "left must be < right",
-                "context": get_context_info(),
             }
         if top >= bottom:
             return {
                 "success": False,
                 "error": "top must be < bottom",
-                "context": get_context_info(),
             }
 
         ps_app = PhotoshopApp()
@@ -107,7 +101,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": "No active document",
-                "context": get_context_info(),
             }
 
         try:
@@ -138,7 +131,6 @@ def register(mcp) -> list[str]:
                 "bounds": {"top": top, "left": left, "bottom": bottom, "right": right},
                 "width": width,
                 "height": height,
-                "context": get_context_info(),
             }
 
         except Exception as e:
@@ -146,7 +138,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": str(e),
-                "context": get_context_info(),
             }
 
     @debug_tool
@@ -164,7 +155,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": "No active document",
-                "context": get_context_info(),
             }
 
         try:
@@ -178,7 +168,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": True,
                 "message": "Selection removed",
-                "context": get_context_info(),
             }
 
         except Exception as e:
@@ -186,7 +175,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": str(e),
-                "context": get_context_info(),
             }
 
     @debug_tool
@@ -204,7 +192,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": "No active document",
-                "context": get_context_info(),
             }
 
         try:
@@ -231,13 +218,11 @@ def register(mcp) -> list[str]:
                 return {
                     "success": False,
                     "error": "No selection to invert",
-                    "context": get_context_info(),
                 }
 
             return {
                 "success": True,
                 "message": "Selection inverted",
-                "context": get_context_info(),
             }
 
         except Exception as e:
@@ -246,14 +231,12 @@ def register(mcp) -> list[str]:
                 return {
                     "success": False,
                     "error": "No selection to invert",
-                    "context": get_context_info(),
                 }
 
             logger.error(f"Failed to invert selection: {e}")
             return {
                 "success": False,
                 "error": str(e),
-                "context": get_context_info(),
             }
 
     # Register all tools

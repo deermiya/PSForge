@@ -7,7 +7,6 @@ from photoshop.api._document import Document
 
 from psforge.decorators import debug_tool, log_tool_call
 from psforge.ps_adapter.application import PhotoshopApp
-from psforge.ps_adapter.context import get_context_info
 from psforge.ps_adapter.utils import js_escape_string, validate_numeric_range
 from psforge.registry import register_tool
 
@@ -55,7 +54,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": f"Invalid color_mode '{color_mode}'. Must be one of: {', '.join(valid_modes)}",
-                "context": get_context_info(),
             }
 
         ps_app = PhotoshopApp()
@@ -91,7 +89,6 @@ def register(mcp) -> list[str]:
                 "height": height,
                 "resolution": resolution,
                 "color_mode": color_mode,
-                "context": get_context_info(),
             }
 
         except Exception as e:
@@ -99,7 +96,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": str(e),
-                "context": get_context_info(),
             }
 
     @debug_tool
@@ -119,7 +115,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": f"File not found: {file_path}",
-                "context": get_context_info(),
             }
 
         ps_app = PhotoshopApp()
@@ -141,7 +136,6 @@ def register(mcp) -> list[str]:
                 "message": f"Opened image: {doc_name}",
                 "file_path": file_path,
                 "document_name": doc_name,
-                "context": get_context_info(),
             }
 
         except Exception as e:
@@ -150,7 +144,6 @@ def register(mcp) -> list[str]:
                 "success": False,
                 "error": str(e),
                 "file_path": file_path,
-                "context": get_context_info(),
             }
 
     @debug_tool
@@ -177,7 +170,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": "No active document to save",
-                "context": get_context_info(),
             }
 
         format = format.lower()
@@ -185,7 +177,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": f"Invalid format '{format}'. Must be: psd, jpg, or png",
-                "context": get_context_info(),
             }
 
         if format == "jpg":
@@ -232,7 +223,6 @@ def register(mcp) -> list[str]:
                 "message": f"Document saved as {format.upper()}",
                 "saved_path": saved_path,
                 "format": format,
-                "context": get_context_info(),
             }
 
         except Exception as e:
@@ -240,7 +230,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": str(e),
-                "context": get_context_info(),
             }
 
     @debug_tool
@@ -261,7 +250,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": "No active document to close",
-                "context": get_context_info(),
             }
 
         try:
@@ -278,7 +266,6 @@ def register(mcp) -> list[str]:
                 "success": True,
                 "message": "Document closed" + (" and saved" if save else ""),
                 "saved": save,
-                "context": get_context_info(),
             }
 
         except Exception as e:
@@ -286,7 +273,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": str(e),
-                "context": get_context_info(),
             }
 
     @debug_tool
@@ -310,14 +296,13 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": "No active document to crop",
-                "context": get_context_info(),
             }
 
         # Validate bounds
         if left >= right:
-            return {"success": False, "error": "left must be < right", "context": get_context_info()}
+            return {"success": False, "error": "left must be < right"}
         if top >= bottom:
-            return {"success": False, "error": "top must be < bottom", "context": get_context_info()}
+            return {"success": False, "error": "top must be < bottom"}
 
         try:
             crop_script = f"""
@@ -337,7 +322,6 @@ def register(mcp) -> list[str]:
                 "new_width": new_width,
                 "new_height": new_height,
                 "bounds": {"top": top, "left": left, "bottom": bottom, "right": right},
-                "context": get_context_info(),
             }
 
         except Exception as e:
@@ -345,7 +329,6 @@ def register(mcp) -> list[str]:
             return {
                 "success": False,
                 "error": str(e),
-                "context": get_context_info(),
             }
 
     # Register all tools
