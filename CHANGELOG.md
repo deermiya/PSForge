@@ -5,6 +5,25 @@ All notable changes to PSForge will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.0] - 2026-06-05
+
+### Added
+
+- **MCP Prompts Support** — Introduced a dynamic discovery and registration system for Prompts (via `@mcp.prompt()`). Prompts in `psforge/prompts/` are auto-registered on startup.
+- **`ps-image-analyzer` Prompt Template** — A built-in Prompt template guiding AI agents to perform visual design analysis and output a PSForge-compatible reconstruction JSON spec.
+- **Prompt Registration Framework** — Added `register_prompt` and `discover_and_register_prompts` helpers in `psforge/registry.py` to allow easy extension of MCP prompts.
+
+## [0.3.0] - 2026-06-03
+
+### Changed
+
+- **Refactor Core Tools** — Simplified the MCP server from 61 fine-grained wrapper tools down to **5 core tools** (`execute_script`, `execute_batch`, `get_session_info`, `get_layers`, `capture_canvas`).
+- **ExtendScript Execution** — AI agents now generate raw ExtendScript/JavaScript directly to execute in Photoshop, offering maximum flexibility and minimizing COM roundtrip overhead.
+
+### Added
+
+- **`capture_canvas` tool** — Screenshot the active document canvas as base64 PNG, enabling visual feedback loops for AI agents.
+
 ## [0.2.0] - 2026-06-01
 
 ### Performance

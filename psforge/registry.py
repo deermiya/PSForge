@@ -29,6 +29,33 @@ def register_tool(mcp: FastMCP, func: Callable, name: str | None = None) -> str:
     return tool_name
 
 
+def register_prompt(
+    mcp: FastMCP,
+    func: Callable,
+    name: str | None = None,
+    description: str | None = None,
+) -> str:
+    """Register a single prompt function with the MCP server.
+
+    Args:
+        mcp: MCP server instance.
+        func: Prompt function to register.
+        name: Optional prompt name override.
+        description: Optional prompt description override.
+
+    Returns:
+        The registered prompt name.
+    """
+    prompt_name = name or func.__name__
+    prompt_desc = description or func.__doc__ or f"Prompt: {prompt_name}"
+
+    mcp.prompt(name=prompt_name, description=prompt_desc.strip())(func)
+
+    logger.debug(f"Registered prompt: {prompt_name}")
+    return prompt_name
+
+
+
 def discover_and_register_tools(mcp: FastMCP) -> list[str]:
     """Automatically discover and register all tools from the tools package.
 
@@ -119,3 +146,50 @@ def discover_and_register_resources(mcp: FastMCP) -> list[str]:
 
     logger.info(f"Total resources registered: {len(registered_resources)}")
     return registered_resources
+
+
+def discover_and_register_prompts(mcp: FastMCP) -> list[str]:
+    """Automatically discover and register all prompts from the prompts package.
+
+    Args:
+        mcp: MCP server instance.
+
+    Returns:
+        List of registered prompt names.
+    """
+    registered_prompts = []
+
+    # Import prompts package
+    try:
+        import psforge.prompts as prompts_pkg
+    except ImportError as e:
+        logger.error(f"Failed to import prompts package: {e}")
+        return registered_prompts
+
+    # Get prompts package path
+    prompts_path = Path(prompts_pkg.__file__).parent
+
+    # Iterate through all Python modules in prompts/
+    for module_info in pkgutil.iter_modules([str(prompts_path)]):
+        if module_info.name.startswith("_"):
+            continue
+
+        module_name = f"psforge.prompts.{module_info.name}"
+
+        try:
+            module = importlib.import_module(module_name)
+
+            # Look for register() function
+            if hasattr(module, "register"):
+                logger.info(f"Registering prompts from: {module_name}")
+                prompt_names = module.register(mcp)
+                registered_prompts.extend(prompt_names)
+            else:
+                logger.warning(f"Module {module_name} has no register() function")
+
+        except Exception as e:
+            logger.error(f"Failed to register prompts from {module_name}: {e}")
+
+    logger.info(f"Total prompts registered: {len(registered_prompts)}")
+    return registered_prompts
+

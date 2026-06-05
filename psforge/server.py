@@ -6,7 +6,11 @@ from loguru import logger
 from mcp.server.fastmcp import FastMCP
 
 from psforge.app import __app_name__, __version__
-from psforge.registry import discover_and_register_resources, discover_and_register_tools
+from psforge.registry import (
+    discover_and_register_prompts,
+    discover_and_register_resources,
+    discover_and_register_tools,
+)
 
 
 def setup_logging():
@@ -61,6 +65,17 @@ def run():
             logger.info(f"  - {uri}")
     else:
         logger.info("No resources registered (this is OK)")
+
+    # Discover and register all prompts
+    logger.info("Discovering and registering prompts...")
+    prompt_names = discover_and_register_prompts(mcp)
+
+    if prompt_names:
+        logger.info(f"Registered {len(prompt_names)} prompts:")
+        for name in sorted(prompt_names):
+            logger.info(f"  - {name}")
+    else:
+        logger.info("No prompts registered (this is OK)")
 
     # Run the server
     logger.info("PSForge MCP Server is ready")

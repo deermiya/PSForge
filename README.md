@@ -35,6 +35,20 @@ So v0.3.0 strips away the wrappers and keeps only what matters.
 | `get_layers` | Get all layers with name, kind, opacity, blend mode, bounds. |
 | `capture_canvas` | Screenshot the canvas as base64 PNG for AI visual feedback. |
 
+## Prompts
+
+In addition to tools, PSForge exposes prompt templates that guide AI clients in specialized workflows.
+
+| Prompt | Purpose |
+|------|---------|
+| `ps-image-analyzer` | Instructs the AI client (using its own Vision capabilities) to analyze a design image and output a structured Photoshop reconstruction specification (JSON) that can be directly executed using PSForge tools. |
+
+### Using Prompts
+Prompts are registered automatically via FastMCP. In compatible clients (such as Claude Desktop or Cursor in Agent mode):
+1. **Claude Desktop**: Select the `ps-image-analyzer` prompt from the Prompts list in the client interface to initiate the reconstruction session.
+2. **Cursor / coding agents**: Command the agent naturally (e.g. *"Use the ps-image-analyzer prompt to reconstruct this screenshot"*). The agent will dynamically fetch the prompt via MCP and use it.
+
+
 ## Requirements
 
 | Component | Version | Notes |
@@ -83,9 +97,9 @@ AI Client (Claude / Cursor)
         │ MCP Protocol (stdio)
         ▼
 MCP Server (FastMCP)          ← server.py + registry.py
-        │ Tool Calls
+        │ Tool & Prompt Calls
         ▼
-5 Core Tools                  ← tools/{script,inspect,capture}_tools.py
+5 Core Tools & 1 Prompt       ← tools/ and prompts/
         │ PS Operations
         ▼
 PS Adapter                    ← ps_adapter/ (singleton, retry, context)
@@ -156,6 +170,23 @@ def register(mcp):
 
     registered_tools.append(register_tool(mcp, my_tool, "my_tool"))
     return registered_tools
+
+
+## Adding Custom Prompts
+
+Drop a Python file into `psforge/prompts/`. It auto-registers on startup:
+
+```python
+from psforge.registry import register_prompt
+
+def register(mcp):
+    def my_prompt() -> str:
+        """Prompt description."""
+        return "Your prompt template content here."
+
+    register_prompt(mcp, my_prompt, name="my-custom-prompt")
+    return ["my-custom-prompt"]
+```
 ```
 
 ## Troubleshooting
@@ -167,6 +198,10 @@ def register(mcp):
 **Tools not showing in Claude** — Verify `claude_desktop_config.json` path. Restart Claude Desktop. Check logs at `%APPDATA%\Claude\logs\`.
 
 ## Version History
+
+### v0.4.0
+
+Added MCP Prompts support. Introduced `ps-image-analyzer` prompt template for automatic design analysis and Photoshop reconstruction. Added dynamic auto-registration for custom prompts under `psforge/prompts/`.
 
 ### v0.3.0
 
