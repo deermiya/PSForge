@@ -172,16 +172,16 @@ PSForge 当前 **不支持** 以下操作，遇到时必须标记到 `unsupporte
 
 ## 与 PSForge 工具的映射
 
-分析完成后，如果用户要求执行，按以下顺序调用 PSForge 工具：
+PSForge v0.3.0+ 采用极简的 5 核心工具架构（无各个细分工具）。分析完成后，如果用户要求执行，AI 客户端应将重建规格书（JSON）翻译为对应的 Photoshop ExtendScript，并通过 `execute_script` 或 `execute_batch` 执行：
 
-1. `create_document` → document 节点
-2. 按 order 从小到大遍历 layers：
-   - fill → `create_layer` + `select_all` + `fill_layer`
-   - text → `create_text_layer`，然后按需 `set_text_font` / `set_text_alignment`
-   - image → `place_image`（需要用户提供素材路径）
-3. 对每个图层按需设置 `set_layer_opacity` / `set_layer_blend_mode`
-4. 按 adjustments 应用滤镜和调整
-5. `save_document`
+1. **创建文档**：根据 `document` 节点参数，编写 ExtendScript 调用 `app.documents.add(width, height, resolution, name, colorMode)` 新建文档。
+2. **构建图层**（按 `order` 从底到顶顺序遍历 `layers`）：
+   - `fill`：创建新图层，建立全选区并使用 `SolidColor` 进行填充。
+   - `text`：创建新图层并将 `kind` 设为 `LayerKind.TEXT`，接着设置文字内容（`contents`）、字体（`font`）、字号（`size`）、颜色（`color`）及对齐方式。
+   - `image`：通过文件路径置入外部图像素材。
+3. **设置图层属性**：对各图层设置不透明度（`opacity`）与混合模式（`blendMode`）。
+4. **应用滤镜和调整**：按照 `adjustments` 应用对应的后期效果（如高斯模糊、亮度/对比度调整等）。
+5. **保存输出**：调用 `activeDocument.saveAs()` 保存为最终文件。
 """
 
 def register(mcp: FastMCP) -> list[str]:
