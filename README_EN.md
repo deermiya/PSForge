@@ -130,6 +130,25 @@ startup_timeout_sec = 120
 
 Save the file, restart Codex, then test with: `Use PSForge to get Photoshop session info`.
 
+## Triggering PSForge in an AI Agent
+
+After configuring the MCP server and restarting your client, ask your agent to use PSForge explicitly:
+
+- `Use PSForge to get Photoshop session info.`
+- `Use PSForge to recreate this image as a layered PSD.`
+- `Use PSForge execute_script to create a Photoshop document.`
+- `Use PSForge to batch process PNG images in D:\photos.`
+
+PSForge exposes MCP tools such as `execute_script`, `execute_batch`, `get_session_info`, `get_layers`, and `capture_canvas`. The agent can call these tools directly to control Photoshop without screen recognition, mouse simulation, or Computer Use.
+
+If the agent does not choose PSForge automatically, add this to your prompt:
+
+```text
+Please use the PSForge MCP server, not screen-based automation or Computer Use.
+```
+
+Compared with screen-based automation, PSForge controls Photoshop directly through ExtendScript/COM, uses almost no vision tokens, runs faster, and is better suited for editable PSD generation and batch automation.
+
 ## Architecture
 
 ```

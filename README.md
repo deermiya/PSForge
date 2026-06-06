@@ -130,6 +130,25 @@ startup_timeout_sec = 120
 
 保存后重启 Codex，测试：`使用 PSForge 获取 Photoshop 会话信息`。
 
+## 如何在 AI Agent 中触发
+
+配置 MCP 并重启客户端后，直接在对话中明确要求使用 PSForge：
+
+- `使用 PSForge 获取 Photoshop 会话信息`
+- `用 PSForge 把这张图片复刻成分层 PSD`
+- `调用 PSForge execute_script 创建一个 Photoshop 文档`
+- `使用 PSForge 批量处理 D:\photos 下的 PNG 图片`
+
+PSForge 会向 AI Agent 暴露 `execute_script`、`execute_batch`、`get_session_info`、`get_layers`、`capture_canvas` 等 MCP 工具。Agent 可以直接调用这些工具控制 Photoshop，不需要屏幕识别、鼠标模拟或 Computer Use。
+
+如果 Agent 没有自动选择 PSForge，可以在提示词里加一句：
+
+```text
+请使用 PSForge MCP，不要使用屏幕识别或 Computer Use。
+```
+
+相比基于屏幕的自动化，PSForge 通过 ExtendScript/COM 直接控制 Photoshop，几乎不消耗视觉识别 token，更快、更稳定，也更适合生成可编辑 PSD 和批量自动化。
+
 ## 架构
 
 ```
