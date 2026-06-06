@@ -88,7 +88,45 @@ Edit `%APPDATA%\Claude\claude_desktop_config.json`:
 }
 ```
 
+If you run from source, use the bundled launcher and replace the path with your actual clone location:
+
+```json
+{
+  "mcpServers": {
+    "psforge": {
+      "command": "C:\\path\\to\\PSForge\\start_psforge.bat"
+    }
+  }
+}
+```
+
 Restart Claude Desktop. Test with: `Get Photoshop session info using PSForge`
+
+### Codex
+
+Edit the Codex config file:
+
+```text
+%USERPROFILE%\.codex\config.toml
+```
+
+If you installed PSForge with `pip install psforge`:
+
+```toml
+[mcp_servers.psforge]
+command = 'psforge'
+startup_timeout_sec = 120
+```
+
+If you run from source, use the bundled launcher and replace the path with your actual clone location:
+
+```toml
+[mcp_servers.psforge]
+command = 'C:\path\to\PSForge\start_psforge.bat'
+startup_timeout_sec = 120
+```
+
+Save the file, restart Codex, then test with: `Use PSForge to get Photoshop session info`.
 
 ## Architecture
 

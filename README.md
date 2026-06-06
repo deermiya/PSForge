@@ -88,7 +88,45 @@ pip install -e .
 }
 ```
 
+如果你是从源码运行，使用项目自带的启动脚本，并把路径替换为你的实际克隆目录：
+
+```json
+{
+  "mcpServers": {
+    "psforge": {
+      "command": "C:\\path\\to\\PSForge\\start_psforge.bat"
+    }
+  }
+}
+```
+
 重启 Claude Desktop，测试：`获取 Photoshop 会话信息`
+
+### Codex
+
+编辑 Codex 配置文件：
+
+```text
+%USERPROFILE%\.codex\config.toml
+```
+
+如果你已通过 `pip install psforge` 安装：
+
+```toml
+[mcp_servers.psforge]
+command = 'psforge'
+startup_timeout_sec = 120
+```
+
+如果你是从源码运行，推荐使用项目自带的启动脚本，并把路径替换为你的实际克隆目录：
+
+```toml
+[mcp_servers.psforge]
+command = 'C:\path\to\PSForge\start_psforge.bat'
+startup_timeout_sec = 120
+```
+
+保存后重启 Codex，测试：`使用 PSForge 获取 Photoshop 会话信息`。
 
 ## 架构
 

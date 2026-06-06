@@ -13,7 +13,7 @@
 
 ```bash
 # 1. 进入项目目录
-cd psforge
+cd PSForge
 
 # 2. 安装依赖
 poetry install
@@ -26,7 +26,7 @@ poetry run psforge --help
 
 ```bash
 # 1. 进入项目目录
-cd psforge
+cd PSForge
 
 # 2. 创建虚拟环境（可选但推荐）
 python -m venv venv
@@ -79,13 +79,13 @@ psforge --help
    {
      "mcpServers": {
        "psforge": {
-         "command": "D:\\你的路径\\PSForge\\start_psforge.bat"
+         "command": "C:\\path\\to\\PSForge\\start_psforge.bat"
        }
      }
    }
    ```
 
-   ⚠️ **注意：** 将路径改为你的实际项目路径！
+   ⚠️ **注意：** 将 `C:\\path\\to\\PSForge` 改为你自己的实际克隆路径。`start_psforge.bat` 会自动进入它所在的项目目录，因此项目可以放在任意位置。
 
 2. **重启 Claude Desktop**
 

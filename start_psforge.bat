@@ -1,3 +1,3 @@
 @echo off
-cd /d D:\AI\PSForge
+cd /d "%~dp0"
 poetry run psforge
