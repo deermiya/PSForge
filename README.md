@@ -104,6 +104,8 @@ pip install -e .
 
 ### Codex
 
+参考示例文件：[codex_config.example.toml](codex_config.example.toml)
+
 编辑 Codex 配置文件：
 
 ```text

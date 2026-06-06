@@ -104,6 +104,8 @@ Restart Claude Desktop. Test with: `Get Photoshop session info using PSForge`
 
 ### Codex
 
+See the example file: [codex_config.example.toml](codex_config.example.toml)
+
 Edit the Codex config file:
 
 ```text
