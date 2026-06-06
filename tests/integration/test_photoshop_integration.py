@@ -3,7 +3,7 @@
 These tests require Photoshop to be running and will perform actual operations.
 Run with: pytest tests/integration/test_photoshop_integration.py
 
-⚠️  WARNING: These tests will create/modify documents in Photoshop.
+[WARN]  WARNING: These tests will create/modify documents in Photoshop.
    Make sure to save any important work before running.
 """
 
@@ -168,7 +168,7 @@ class TestLayerOperations:
 
 
 if __name__ == "__main__":
-    print("⚠️  Integration tests require Photoshop to be running!")
+    print("[WARN]  Integration tests require Photoshop to be running!")
     print("Run with: pytest tests/integration/test_photoshop_integration.py")
     print()
     print("Make sure to save any important work in Photoshop before running.")

@@ -17,40 +17,40 @@ def test_connection():
 
     try:
         # 测试 1: 导入模块
-        print("📦 测试 1: 导入 PSForge 模块...")
+        print("[1] 测试 1: 导入 PSForge 模块...")
         from psforge.ps_adapter.application import PhotoshopApp
         from psforge.ps_adapter.context import get_context_info
 
-        print("   ✓ 模块导入成功")
+        print("   [OK] 模块导入成功")
         print()
 
         # 测试 2: 连接 Photoshop
-        print("🔌 测试 2: 连接到 Photoshop...")
+        print("[2] 测试 2: 连接到 Photoshop...")
         ps_app = PhotoshopApp()
-        print("   ✓ 成功连接到 Photoshop")
+        print("   [OK] 成功连接到 Photoshop")
         print()
 
         # 测试 3: 获取 PS 版本
-        print("📌 测试 3: 获取 Photoshop 版本...")
+        print("[3] 测试 3: 获取 Photoshop 版本...")
         version = ps_app.get_photoshop_version()
-        print(f"   ✓ Photoshop 版本: {version}")
+        print(f"   [OK] Photoshop 版本: {version}")
         print()
 
         # 测试 4: 检查文档状态
-        print("📄 测试 4: 检查文档状态...")
+        print("[4] 测试 4: 检查文档状态...")
         has_doc = ps_app.has_active_document()
         if has_doc:
-            print("   ✓ 当前有打开的文档")
+            print("   [OK] 当前有打开的文档")
         else:
-            print("   ℹ 当前没有打开的文档（这是正常的）")
+            print("   [INFO] 当前没有打开的文档（这是正常的）")
         print()
 
         # 测试 5: 获取上下文信息
-        print("🔍 测试 5: 获取上下文信息...")
+        print("[5] 测试 5: 获取上下文信息...")
         context = get_context_info()
 
         if "error" not in context:
-            print("   ✓ 成功获取上下文信息")
+            print("   [OK] 成功获取上下文信息")
             print(f"   - 有文档: {context.get('has_document', False)}")
 
             if context.get("has_document"):
@@ -67,23 +67,23 @@ def test_connection():
                     print(f"   - 图层类型: {layer.get('kind', 'N/A')}")
                     print(f"   - 不透明度: {layer.get('opacity', 0)}%")
         else:
-            print(f"   ⚠ 获取上下文时出现错误: {context.get('error')}")
+            print(f"   [WARN] 获取上下文时出现错误: {context.get('error')}")
         print()
 
         # 测试 6: JavaScript 执行测试
-        print("⚙️  测试 6: JavaScript 执行测试...")
+        print("[6] 测试 6: JavaScript 执行测试...")
         test_script = """
         (function() {
             return "JavaScript execution works!";
         })();
         """
         result = ps_app.execute_javascript(test_script)
-        print(f"   ✓ JavaScript 执行成功: {result}")
+        print(f"   [OK] JavaScript 执行成功: {result}")
         print()
 
         # 总结
         print("=" * 60)
-        print("✅ 所有测试通过！PSForge 工作正常")
+        print("[OK] 所有测试通过！PSForge 工作正常")
         print("=" * 60)
         print()
         print("下一步：")
@@ -95,7 +95,7 @@ def test_connection():
         return True
 
     except ImportError as e:
-        print(f"❌ 模块导入失败: {e}")
+        print(f"[ERROR] 模块导入失败: {e}")
         print()
         print("解决方案：")
         print("  poetry install")
@@ -104,7 +104,7 @@ def test_connection():
         return False
 
     except ConnectionError as e:
-        print(f"❌ 连接 Photoshop 失败: {e}")
+        print(f"[ERROR] 连接 Photoshop 失败: {e}")
         print()
         print("解决方案：")
         print("1. 确认 Photoshop 已启动")
@@ -113,7 +113,7 @@ def test_connection():
         return False
 
     except Exception as e:
-        print(f"❌ 测试失败: {e}")
+        print(f"[ERROR] 测试失败: {e}")
         print()
         print(f"错误类型: {type(e).__name__}")
         print(f"错误详情: {e}")

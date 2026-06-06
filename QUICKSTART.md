@@ -1,13 +1,13 @@
 # PSForge 快速开始指南
 
-## 📋 前置要求
+##  前置要求
 
-- ✅ Windows 系统
-- ✅ Python 3.10 - 3.14
-- ✅ Adobe Photoshop CC 2019 或更新版本
-- ✅ Poetry（推荐）或 pip
+- [OK] Windows 系统
+- [OK] Python 3.10 - 3.14
+- [OK] Adobe Photoshop CC 2019 或更新版本
+- [OK] Poetry（推荐）或 pip
 
-## 🚀 快速安装
+##  快速安装
 
 ### 方法一：使用 Poetry（推荐）
 
@@ -39,7 +39,7 @@ pip install -e .
 psforge --help
 ```
 
-## 🧪 快速测试
+##  快速测试
 
 ### 测试 1：启动 Photoshop 并测试连接
 
@@ -61,10 +61,10 @@ psforge --help
 
    **预期输出：**
    ```
-   ✓ Successfully connected to Photoshop
-   ✓ Photoshop version: 24.x.x
-   ✓ Context info retrieved
-   ✓ All tests passed!
+   [OK] Successfully connected to Photoshop
+   [OK] Photoshop version: 24.x.x
+   [OK] Context info retrieved
+   [OK] All tests passed!
    ```
 
 ### 测试 2：通过 Claude Desktop 使用（完整 MCP 集成）
@@ -85,7 +85,7 @@ psforge --help
    }
    ```
 
-   ⚠️ **注意：** 将 `C:\\path\\to\\PSForge` 改为你自己的实际克隆路径。`start_psforge.bat` 会自动进入它所在的项目目录，因此项目可以放在任意位置。
+   [WARN] **注意：** 将 `C:\\path\\to\\PSForge` 改为你自己的实际克隆路径。`start_psforge.bat` 会自动进入它所在的项目目录，因此项目可以放在任意位置。
 
 2. **重启 Claude Desktop**
 
@@ -118,7 +118,7 @@ Claude 会依次调用：
 
 检查 Photoshop 中是否出现了相应的文档和图层。
 
-## 🔧 手动测试单个工具
+##  手动测试单个工具
 
 创建一个 Python 脚本 `manual_test.py`：
 
@@ -177,7 +177,7 @@ if result['success']:
     print(f"颜色模式: {doc['color_mode']}")
 print()
 
-print("✓ 所有手动测试完成！")
+print("[OK] 所有手动测试完成！")
 ```
 
 运行：
@@ -185,7 +185,7 @@ print("✓ 所有手动测试完成！")
 poetry run python manual_test.py
 ```
 
-## 📊 验证清单
+##  验证清单
 
 运行以下命令检查所有工具是否正确注册：
 
@@ -200,16 +200,16 @@ from mcp.server.fastmcp import FastMCP
 mcp = FastMCP("PSForge-Test")
 tools = discover_and_register_tools(mcp)
 
-print(f"✓ 总计注册 {len(tools)} 个工具")
+print(f"[OK] 总计注册 {len(tools)} 个工具")
 print("\n工具列表：")
 for i, tool in enumerate(sorted(tools), 1):
     print(f"{i:2d}. {tool}")
 
 expected = 59
 if len(tools) == expected:
-    print(f"\n✅ 成功！所有 {expected} 个工具已注册")
+    print(f"\n[OK] 成功！所有 {expected} 个工具已注册")
 else:
-    print(f"\n⚠️  预期 {expected} 个工具，实际注册了 {len(tools)} 个")
+    print(f"\n[WARN]  预期 {expected} 个工具，实际注册了 {len(tools)} 个")
 ```
 
 保存为 `check_tools.py`，运行：
@@ -219,7 +219,7 @@ poetry run python check_tools.py
 
 **预期输出：**
 ```
-✓ 总计注册 59 个工具
+[OK] 总计注册 59 个工具
 
 工具列表：
  1. adjust_brightness_contrast
@@ -228,10 +228,10 @@ poetry run python check_tools.py
  4. apply_motion_blur
  ... (共 59 个)
 
-✅ 成功！所有 59 个工具已注册
+[OK] 成功！所有 59 个工具已注册
 ```
 
-## 🐛 常见问题
+##  常见问题
 
 ### 问题 1：无法连接到 Photoshop
 
@@ -274,7 +274,7 @@ pip install photoshop-python-api
 2. 检查 Photoshop 是否弹出了对话框（PSForge 会禁用，但某些情况仍可能出现）
 3. 重启 Photoshop
 
-## 📝 调试日志
+##  调试日志
 
 PSForge 自动生成调试日志：
 
@@ -296,7 +296,7 @@ notepad psforge_debug.log
 2024-05-26 15:30:01 | INFO     | Tool get_session_info SUCCESS
 ```
 
-## 🎯 下一步
+##  下一步
 
 测试通过后，你可以：
 
@@ -305,7 +305,7 @@ notepad psforge_debug.log
 3. **查看源码** - 了解工具实现细节，自定义功能
 4. **贡献代码** - 添加新工具或改进现有功能
 
-## 🆘 获取帮助
+##  获取帮助
 
 - **文档：** [README.md](README.md)
 - **问题报告：** 在项目仓库创建 Issue

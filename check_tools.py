@@ -1,12 +1,7 @@
 """检查所有工具是否正确注册"""
 
 import sys
-import io
 from pathlib import Path
-
-# Fix Windows console encoding for emoji support
-sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
-sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8', errors='replace')
 
 # 添加项目路径到 Python path
 project_root = Path(__file__).parent
@@ -25,19 +20,19 @@ def check_tools():
         from psforge.registry import discover_and_register_tools
 
         # 创建测试 MCP 服务器
-        print("📦 创建 MCP 服务器实例...")
+        print("[1] 创建 MCP 服务器实例...")
         mcp = FastMCP("PSForge-ToolCheck")
-        print("   ✓ MCP 服务器创建成功")
+        print("   [OK] MCP 服务器创建成功")
         print()
 
         # 发现并注册工具
-        print("🔍 发现并注册工具...")
+        print("[2] 发现并注册工具...")
         tools = discover_and_register_tools(mcp)
-        print(f"   ✓ 成功注册 {len(tools)} 个工具")
+        print(f"   [OK] 成功注册 {len(tools)} 个工具")
         print()
 
         # 按类别分组显示
-        print("📋 工具列表（按类别）:")
+        print("工具列表（按类别）:")
         print("-" * 60)
 
         tool_categories = {
@@ -98,9 +93,9 @@ def check_tools():
 
             print(f"\n{category} ({len(found_tools)}/{len(expected_tools)}):")
             for tool in found_tools:
-                print(f"  ✓ {tool}")
+                print(f"  [OK] {tool}")
             for tool in missing_tools:
-                print(f"  ✗ {tool} (缺失)")
+                print(f"  [MISSING] {tool}")
 
             total_categorized += len(expected_tools)
 
@@ -113,12 +108,12 @@ def check_tools():
         if uncategorized:
             print(f"\n未分类工具 ({len(uncategorized)}):")
             for tool in uncategorized:
-                print(f"  ⚠ {tool}")
+                print(f"  [WARN] {tool}")
 
         # 总结
         print()
         print("=" * 60)
-        print("📊 统计信息:")
+        print("统计信息:")
         print("-" * 60)
         print(f"实际注册工具数: {len(tools)}")
         print(f"预期工具数: 61")
@@ -126,20 +121,20 @@ def check_tools():
 
         if len(tools) == 61:
             print()
-            print("✅ 完美！所有 61 个工具已成功注册")
+            print("[OK] 完美！所有 61 个工具已成功注册")
         elif len(tools) > 61:
             print()
-            print(f"⚠️  警告：注册了 {len(tools) - 61} 个额外工具")
+            print(f"[WARN] 警告：注册了 {len(tools) - 61} 个额外工具")
         else:
             print()
-            print(f"❌ 缺少 {61 - len(tools)} 个工具")
+            print(f"[ERROR] 缺少 {61 - len(tools)} 个工具")
 
         print("=" * 60)
         print()
 
         # 显示所有工具的完整列表
         if len(sys.argv) > 1 and sys.argv[1] == "--all":
-            print("📝 完整工具列表（按字母顺序）:")
+            print("完整工具列表（按字母顺序）:")
             print("-" * 60)
             for i, tool in enumerate(sorted(tools), 1):
                 print(f"{i:2d}. {tool}")
@@ -148,7 +143,7 @@ def check_tools():
         return len(tools) == 61
 
     except Exception as e:
-        print(f"❌ 检查失败: {e}")
+        print(f"[ERROR] 检查失败: {e}")
         print()
         print(f"错误类型: {type(e).__name__}")
         print(f"错误详情: {e}")

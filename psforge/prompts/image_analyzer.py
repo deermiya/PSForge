@@ -37,9 +37,9 @@ PROMPT_CONTENT = """# PS Image Analyzer
   - `fill` — 纯色填充层（对应 `create_layer` + `fill_layer`）
   - `text` — 文字层（对应 `create_text_layer`）
   - `image` — 图片/照片层（对应 `place_image`，需外部素材）
-  - `shape` — 几何形状（⚠️ PSForge 暂不支持，标记到 unsupported）
-  - `gradient` — 渐变填充（⚠️ PSForge 暂不支持，标记到 unsupported）
-  - `effect` — 图层样式/特效（⚠️ PSForge 暂不支持，标记到 unsupported）
+  - `shape` — 几何形状（[WARN] PSForge 暂不支持，标记到 unsupported）
+  - `gradient` — 渐变填充（[WARN] PSForge 暂不支持，标记到 unsupported）
+  - `effect` — 图层样式/特效（[WARN] PSForge 暂不支持，标记到 unsupported）
 
 - **name**: 语义化图层名，如 "背景色块"、"标题文字"、"产品图"
 - **position**: `{ "x": number, "y": number }` 左上角坐标（像素）

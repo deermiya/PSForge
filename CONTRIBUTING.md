@@ -2,17 +2,17 @@
 
 Thank you for your interest in contributing to PSForge! This document provides guidelines and instructions for contributing.
 
-## 🌟 Ways to Contribute
+##  Ways to Contribute
 
-- 🐛 **Report bugs** - Found a bug? Open an issue
-- 💡 **Suggest features** - Have an idea? We'd love to hear it
-- 📝 **Improve documentation** - Clarify or expand docs
-- 🔧 **Fix bugs** - Submit a pull request
-- ✨ **Add features** - Implement new tools or capabilities
-- 🧪 **Write tests** - Improve test coverage
-- 🌍 **Translate** - Help with internationalization
+-  **Report bugs** - Found a bug? Open an issue
+-  **Suggest features** - Have an idea? We'd love to hear it
+-  **Improve documentation** - Clarify or expand docs
+-  **Fix bugs** - Submit a pull request
+- **Add features** - Implement new tools or capabilities
+-  **Write tests** - Improve test coverage
+-  **Translate** - Help with internationalization
 
-## 📋 Before You Start
+##  Before You Start
 
 1. **Check existing issues** - Someone might already be working on it
 2. **Open an issue first** - For major changes, discuss the approach
@@ -20,7 +20,7 @@ Thank you for your interest in contributing to PSForge! This document provides g
 4. **Write tests** - Maintain or improve test coverage
 5. **Update documentation** - Keep docs in sync with code
 
-## 🚀 Development Setup
+##  Development Setup
 
 ### 1. Fork and Clone
 
@@ -54,7 +54,7 @@ git checkout -b feature/your-feature-name
 git checkout -b fix/bug-description
 ```
 
-## 📝 Code Style Guidelines
+##  Code Style Guidelines
 
 ### Python Code Style
 
@@ -77,14 +77,14 @@ poetry run ruff check --fix .
 
 ### Code Standards
 
-- ✅ **Line length:** 120 characters
-- ✅ **Type hints:** Required on all function parameters and returns
-- ✅ **Docstrings:** Required on all public functions (Google style)
-- ✅ **Naming:**
+- [OK] **Line length:** 120 characters
+- [OK] **Type hints:** Required on all function parameters and returns
+- [OK] **Docstrings:** Required on all public functions (Google style)
+- [OK] **Naming:**
   - Functions/variables: `snake_case`
   - Classes: `PascalCase`
   - Constants: `UPPER_SNAKE_CASE`
-- ✅ **Imports:** Organized (stdlib → third-party → local)
+- [OK] **Imports:** Organized (stdlib → third-party → local)
 
 ### Docstring Example
 
@@ -116,7 +116,7 @@ def create_text_layer(
     # Implementation...
 ```
 
-## 🛠️ Adding New Tools
+## ️ Adding New Tools
 
 PSForge uses an auto-discovery system. To add a new tool:
 
@@ -194,13 +194,13 @@ def register(mcp) -> list[str]:
 ### 2. Tool Requirements
 
 Every tool MUST:
-- ✅ Have `@debug_tool` and `@log_tool_call` decorators
-- ✅ Return a `dict` with `success` field
-- ✅ Include `context` from `get_context_info()` in return value
-- ✅ Have complete docstring with Args and Returns sections
-- ✅ Have type hints on all parameters and return value
-- ✅ Validate parameters before executing
-- ✅ Handle errors gracefully
+- [OK] Have `@debug_tool` and `@log_tool_call` decorators
+- [OK] Return a `dict` with `success` field
+- [OK] Include `context` from `get_context_info()` in return value
+- [OK] Have complete docstring with Args and Returns sections
+- [OK] Have type hints on all parameters and return value
+- [OK] Validate parameters before executing
+- [OK] Handle errors gracefully
 
 ### 3. Test Your Tool
 
@@ -211,7 +211,7 @@ poetry run python check_tools.py
 
 Your tool should appear in the list!
 
-## 🧪 Testing
+##  Testing
 
 ### Run All Tests
 
@@ -258,15 +258,15 @@ class TestMyAwesomeTool:
         pass
 ```
 
-## 📚 Documentation
+##  Documentation
 
 ### Update Documentation When:
 
-- ✅ Adding new tools → Update README.md tool list
-- ✅ Changing behavior → Update CHANGELOG.md
-- ✅ Adding features → Update QUICKSTART.md if relevant
-- ✅ Fixing bugs → Add to CHANGELOG.md
-- ✅ Changing API → Update relevant docs
+- [OK] Adding new tools → Update README.md tool list
+- [OK] Changing behavior → Update CHANGELOG.md
+- [OK] Adding features → Update QUICKSTART.md if relevant
+- [OK] Fixing bugs → Add to CHANGELOG.md
+- [OK] Changing API → Update relevant docs
 
 ### Documentation Files
 
@@ -275,7 +275,7 @@ class TestMyAwesomeTool:
 - `CHANGELOG.md` - Version history
 - `CONTRIBUTING.md` - This file
 
-## 🔄 Pull Request Process
+##  Pull Request Process
 
 ### 1. Prepare Your Changes
 
@@ -327,13 +327,13 @@ git push origin feature/your-feature-name
 
 Before submitting, ensure:
 
-- ✅ All tests pass
-- ✅ Code is formatted with Ruff
-- ✅ New features have tests
-- ✅ Documentation is updated
-- ✅ Commit messages follow convention
-- ✅ PR description explains the change
-- ✅ No merge conflicts
+- [OK] All tests pass
+- [OK] Code is formatted with Ruff
+- [OK] New features have tests
+- [OK] Documentation is updated
+- [OK] Commit messages follow convention
+- [OK] PR description explains the change
+- [OK] No merge conflicts
 
 ### 5. Code Review
 
@@ -342,7 +342,7 @@ Before submitting, ensure:
 - Push updates to the same branch
 - PR will update automatically
 
-## 🐛 Reporting Bugs
+##  Reporting Bugs
 
 ### Before Reporting
 
@@ -381,7 +381,7 @@ Attach relevant logs from `psforge_debug.log`
 Any other relevant information.
 ```
 
-## 💡 Suggesting Features
+##  Suggesting Features
 
 ### Feature Request Template
 
@@ -399,7 +399,7 @@ Other approaches you've thought about.
 Mockups, examples, or references.
 ```
 
-## 🎯 Development Tips
+##  Development Tips
 
 ### Debugging
 
@@ -419,20 +419,20 @@ Mockups, examples, or references.
 - **Connection failures:** Ensure PS is running
 - **Type errors:** Add type hints and run `mypy`
 
-## 📄 License
+##  License
 
 By contributing, you agree that your contributions will be licensed under the MIT License.
 
-## 🙏 Thank You!
+##  Thank You!
 
 Your contributions make PSForge better for everyone. We appreciate your time and effort!
 
-## 📞 Questions?
+##  Questions?
 
-- 💬 **Discussion:** Open a GitHub Discussion
-- 🐛 **Bugs:** Open a GitHub Issue
-- 📧 **Private:** Contact maintainers (if applicable)
+-  **Discussion:** Open a GitHub Discussion
+-  **Bugs:** Open a GitHub Issue
+-  **Private:** Contact maintainers (if applicable)
 
 ---
 
-**Happy contributing! 🎨✨**
+**Happy contributing!**

@@ -7,12 +7,7 @@
 """Check prompt registration for PSForge MCP Server."""
 
 import sys
-import io
 from pathlib import Path
-
-# Fix Windows console encoding for emoji support
-sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
-sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8', errors='replace')
 
 # Add project root to python path
 project_root = Path(__file__).parent
@@ -30,32 +25,32 @@ def check_prompts():
         from mcp.server.fastmcp import FastMCP
         from psforge.registry import discover_and_register_prompts
 
-        print("📦 创建 MCP 服务器实例...")
+        print("[1] 创建 MCP 服务器实例...")
         mcp = FastMCP("PSForge-PromptCheck")
-        print("   ✓ MCP 服务器创建成功")
+        print("   [OK] MCP 服务器创建成功")
         print()
 
-        print("🔍 发现并注册 Prompts...")
+        print("[2] 发现并注册 Prompts...")
         prompts = discover_and_register_prompts(mcp)
-        print(f"   ✓ 成功注册 {len(prompts)} 个 Prompts")
+        print(f"   [OK] 成功注册 {len(prompts)} 个 Prompts")
         print()
 
-        print("📋 Prompt 列表:")
+        print("Prompt 列表:")
         print("-" * 60)
         for name in prompts:
-            print(f"  ✓ {name}")
+            print(f"  [OK] {name}")
         print("-" * 60)
         print()
 
         if "ps-image-analyzer" in prompts:
-            print("✅ 测试成功：'ps-image-analyzer' 已成功注册！")
+            print("[OK] 测试成功：'ps-image-analyzer' 已成功注册！")
             return True
         else:
-            print("❌ 测试失败：未能注册 'ps-image-analyzer'")
+            print("[ERROR] 测试失败：未能注册 'ps-image-analyzer'")
             return False
 
     except Exception as e:
-        print(f"❌ 检查失败: {e}")
+        print(f"[ERROR] 检查失败: {e}")
         import traceback
         traceback.print_exc()
         return False
