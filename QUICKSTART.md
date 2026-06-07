@@ -205,7 +205,7 @@ print("\n工具列表：")
 for i, tool in enumerate(sorted(tools), 1):
     print(f"{i:2d}. {tool}")
 
-expected = 59
+expected = 6
 if len(tools) == expected:
     print(f"\n[OK] 成功！所有 {expected} 个工具已注册")
 else:
@@ -219,16 +219,17 @@ poetry run python check_tools.py
 
 **预期输出：**
 ```
-[OK] 总计注册 59 个工具
+[OK] 总计注册 6 个工具
 
 工具列表：
- 1. adjust_brightness_contrast
- 2. adjust_hue_saturation
- 3. apply_gaussian_blur
- 4. apply_motion_blur
- ... (共 59 个)
+ 1. capture_canvas
+ 2. execute_batch
+ 3. execute_script
+ 4. get_layers
+ 5. get_session_info
+ 6. recreate_image_as_layered_psd
 
-[OK] 成功！所有 59 个工具已注册
+[OK] 成功！所有 6 个工具已注册
 ```
 
 ##  常见问题
@@ -300,7 +301,7 @@ notepad psforge_debug.log
 
 测试通过后，你可以：
 
-1. **探索所有 59 个工具** - 查看 [README.md](README.md) 的工具列表
+1. **探索所有 6 个工具** - 查看 [README.md](README.md) 的工具列表
 2. **创建复杂工作流** - 组合多个工具实现自动化
 3. **查看源码** - 了解工具实现细节，自定义功能
 4. **贡献代码** - 添加新工具或改进现有功能

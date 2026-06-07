@@ -36,54 +36,10 @@ def check_tools():
         print("-" * 60)
 
         tool_categories = {
-            "会话信息": ["get_session_info", "get_active_document_info", "get_selection_info"],
-            "文档管理": ["create_document", "open_image", "save_document", "close_document", "crop_document"],
-            "图层基础": [
-                "create_layer",
-                "delete_layer",
-                "duplicate_layer",
-                "merge_visible_layers",
-                "flatten_image",
-                "rasterize_layer",
-            ],
-            "图层属性": [
-                "set_layer_opacity",
-                "set_layer_blend_mode",
-                "set_layer_visibility",
-                "set_layer_locked",
-                "rename_layer",
-                "fill_layer",
-            ],
-            "图层排序": [
-                "move_layer_up",
-                "move_layer_down",
-                "move_layer_to_top",
-                "move_layer_to_bottom",
-                "move_layer_to_position",
-            ],
-            "图层变换": ["move_layer", "scale_layer", "rotate_layer", "fit_layer_to_document", "resize_image"],
-            "文字工具": [
-                "create_text_layer",
-                "update_text_content",
-                "set_text_font",
-                "set_text_color",
-                "set_text_alignment",
-            ],
-            "滤镜": ["apply_gaussian_blur", "apply_motion_blur", "apply_sharpen", "apply_noise"],
-            "调整": [
-                "adjust_brightness_contrast",
-                "adjust_hue_saturation",
-                "auto_levels",
-                "auto_contrast",
-                "desaturate",
-                "invert",
-            ],
-            "选区": ["select_all", "select_rectangle", "deselect", "invert_selection"],
-            "图像操作": ["place_image", "get_layers"],
-            "蒙版": ["create_layer_mask", "apply_layer_mask", "delete_layer_mask"],
-            "历史记录": ["undo", "redo", "get_history"],
-            "动作/脚本": ["play_action", "execute_script"],
-            "批量操作": ["execute_batch", "select_layer_by_name"],
+            "会话信息": ["get_session_info"],
+            "检查/反馈": ["get_layers", "capture_canvas"],
+            "脚本执行": ["execute_script", "execute_batch"],
+            "高层工作流": ["recreate_image_as_layered_psd"],
         }
 
         total_categorized = 0
@@ -116,18 +72,19 @@ def check_tools():
         print("统计信息:")
         print("-" * 60)
         print(f"实际注册工具数: {len(tools)}")
-        print(f"预期工具数: 61")
+        expected_count = 6
+        print(f"预期工具数: {expected_count}")
         print(f"分类工具数: {total_categorized}")
 
-        if len(tools) == 61:
+        if len(tools) == expected_count:
             print()
-            print("[OK] 完美！所有 61 个工具已成功注册")
-        elif len(tools) > 61:
+            print(f"[OK] 完美！所有 {expected_count} 个工具已成功注册")
+        elif len(tools) > expected_count:
             print()
-            print(f"[WARN] 警告：注册了 {len(tools) - 61} 个额外工具")
+            print(f"[WARN] 警告：注册了 {len(tools) - expected_count} 个额外工具")
         else:
             print()
-            print(f"[ERROR] 缺少 {61 - len(tools)} 个工具")
+            print(f"[ERROR] 缺少 {expected_count - len(tools)} 个工具")
 
         print("=" * 60)
         print()
@@ -140,7 +97,7 @@ def check_tools():
                 print(f"{i:2d}. {tool}")
             print()
 
-        return len(tools) == 61
+        return len(tools) == expected_count
 
     except Exception as e:
         print(f"[ERROR] 检查失败: {e}")

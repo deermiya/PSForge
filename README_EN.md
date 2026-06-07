@@ -9,13 +9,13 @@
 
 [English](README.md) | [中文](README_ZH.md)
 
-PSForge is an MCP server that lets AI assistants control Adobe Photoshop. Instead of wrapping every PS operation in a separate tool, PSForge exposes a minimal set of **5 core tools** — the AI generates ExtendScript directly and PSForge executes it via COM.
+PSForge is an MCP server that lets AI assistants control Adobe Photoshop. Instead of wrapping every PS operation in a separate tool, PSForge exposes a small set of high-leverage tools — the AI generates ExtendScript directly and PSForge executes it via COM.
 
 > **Quick Start:** See [QUICKSTART.md](QUICKSTART.md) for setup guide
 
 ---
 
-## Why 5 Tools Instead of 61?
+## Why a Small Core Instead of 61 Tools?
 
 The previous version wrapped each PS operation (create layer, set opacity, apply blur…) as an individual MCP tool — 61 in total. In practice, the AI almost exclusively used `execute_script` to send raw ExtendScript, because:
 
@@ -23,7 +23,7 @@ The previous version wrapped each PS operation (create layer, set opacity, apply
 - ExtendScript is more flexible than any fixed parameter set
 - The AI is perfectly capable of generating correct ExtendScript
 
-So v0.3.0 strips away the wrappers and keeps only what matters.
+So v0.3.0 strips away the wrappers and keeps only what matters. v0.4.x keeps the minimal core and adds a high-level workflow tool for image-to-layered-PSD recreation.
 
 ## Tools
 
@@ -34,6 +34,7 @@ So v0.3.0 strips away the wrappers and keeps only what matters.
 | `get_session_info` | Check PS connection, version, and current document state. |
 | `get_layers` | Get all layers with name, kind, opacity, blend mode, bounds. |
 | `capture_canvas` | Screenshot the canvas as base64 PNG for AI visual feedback. |
+| `recreate_image_as_layered_psd` | Recreate a reference image as a layered PSD and export a PNG preview. Supports `fast` / `balanced` / `source` modes. |
 
 ## Prompts
 
@@ -136,10 +137,11 @@ After configuring the MCP server and restarting your client, ask your agent to u
 
 - `Use PSForge to get Photoshop session info.`
 - `Use PSForge to recreate this image as a layered PSD.`
+- `Call PSForge recreate_image_as_layered_psd to generate a PSD and preview for this poster.`
 - `Use PSForge execute_script to create a Photoshop document.`
 - `Use PSForge to batch process PNG images in D:\photos.`
 
-PSForge exposes MCP tools such as `execute_script`, `execute_batch`, `get_session_info`, `get_layers`, and `capture_canvas`. The agent can call these tools directly to control Photoshop without screen recognition, mouse simulation, or Computer Use.
+PSForge exposes MCP tools such as `execute_script`, `execute_batch`, `get_session_info`, `get_layers`, `capture_canvas`, and `recreate_image_as_layered_psd`. The agent can call these tools directly to control Photoshop without screen recognition, mouse simulation, or Computer Use.
 
 If the agent does not choose PSForge automatically, add this to your prompt:
 
@@ -158,7 +160,7 @@ AI Client (Claude / Cursor)
 MCP Server (FastMCP)          ← server.py + registry.py
         │ Tool & Prompt Calls
         ▼
-5 Core Tools & 1 Prompt       ← tools/ and prompts/
+Core Tools & Prompts          ← tools/ and prompts/
         │ PS Operations
         ▼
 PS Adapter                    ← ps_adapter/ (singleton, retry, context)
@@ -261,6 +263,10 @@ def register(mcp):
 ### v0.4.0
 
 Added MCP Prompts support. Introduced `ps-image-analyzer` prompt template for automatic design analysis and Photoshop reconstruction. Added dynamic auto-registration for custom prompts under `psforge/prompts/`.
+
+### v0.4.x
+
+Added `recreate_image_as_layered_psd` for low-token image-to-layered-PSD workflows. The tool creates a hidden reference layer, separated construction layers, editable text layers, and a PNG preview.
 
 ### v0.3.0
 
